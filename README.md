@@ -1,3 +1,3 @@
-# Proyecto
+# PSICOPAUSA
 
-Repositorio inicial del proyecto sincronizado con GitHub.
+Repositorio del proyecto PSICOPAUSA sincronizado y gestionado automáticamente.
