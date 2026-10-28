@@ -1,4 +1,4 @@
-/**
+﻿/**
  * PSICOPAUSA - Aplicación Web de Autocuidado Emocional
  * Router, Navegación Adaptable y Micro-Interacciones
  */

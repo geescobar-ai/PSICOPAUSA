@@ -1,4 +1,4 @@
-# 🌿 PSICOPAUSA
+﻿# 🌿 PSICOPAUSA
 > **Cuidado para quien cuida**  
 > Aplicación web de autocuidado emocional, regulación somática y acompañamiento reflexivo para estudiantes y profesionales de Psicología en formación clínica.
 
