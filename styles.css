@@ -1,0 +1,80 @@
+/* ==========================================================================
+   PSICOPAUSA - Estilos Globales, Animaciones y Ajustes Responsivos Móviles
+   ========================================================================== */
+
+/* Animación fluida de cambio de pantalla */
+.app-view {
+  animation: viewFadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes viewFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Ocultar scrollbar pero mantener el scroll accesible */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(110, 120, 131, 0.25);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(110, 120, 131, 0.45);
+}
+
+/* Estilo para items activos de navegación en el menú móvil */
+.mobile-nav-item.active {
+  color: #006093 !important;
+  font-weight: 700 !important;
+  background-color: rgba(0, 169, 253, 0.12);
+  border-radius: 0.75rem;
+}
+
+.mobile-nav-item.active-crisis {
+  color: #b31b25 !important;
+  font-weight: 700 !important;
+  background-color: rgba(251, 81, 81, 0.15);
+  border-radius: 0.75rem;
+}
+
+/* Soporte para notch y barra de inicio en iPhones y Android modernos */
+#mobile-bottom-nav {
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+}
+
+/* Efectos suaves en botones y tarjetas interactivas */
+button, a, input, textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.active-step {
+  border-left: 4px solid #006093;
+}
+
+/* Animación suave de respiración para el centro de crisis */
+@keyframes breathingPulse {
+  0%, 100% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+
+.animate-breathing {
+  animation: breathingPulse 4s ease-in-out infinite;
+}
