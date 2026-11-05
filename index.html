@@ -125,7 +125,10 @@
     <div class="flex flex-col gap-space-lg">
       <!-- Logo y Título -->
       <a href="#dashboard" class="flex items-center gap-space-sm px-space-xs group cursor-pointer" data-nav="dashboard">
-        <img alt="Psico Pausa Logo" class="h-8 w-auto object-contain transition-transform group-hover:scale-105" src="https://lh3.googleusercontent.com/aida/AEtjO1VJfZdV4nwArBjch3gZ7-xqawnjOWyBWZmgvWhoM6FvFQ-XjIcVWa-VAJCOgAD6YoreJ5qiSw92diWK8YZZcyTCoDMl1mreSmQ5CRgf5f08gNlkL8tKJQW8EdmJ7xjyN8GAqQ2gjYsK2LkmdziAW6u13At4a22Nli-KZ3jaAiNI4O6Z6Vpe5HHxH-vZk2Y2-cl_vkEckGj4OKOyA6a9tXOyX0WES3oOM-ONqENfs7oI83mZVJVSoiUjjTk"/>
+        <!-- Logo icono: ícono spa en color primario (reemplaza imagen externa no disponible) -->
+        <div class="h-8 w-8 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform group-hover:scale-105" style="background:var(--md-sys-color-primary,#6750a4)">
+          <span class="material-symbols-outlined text-white text-xl" style="font-size:1.2rem">spa</span>
+        </div>
         <div class="flex flex-col">
           <span class="font-headline-sm text-headline-sm text-primary tracking-tight font-bold">Psico Pausa</span>
           <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Cuidado para quien cuida</span>
@@ -178,7 +181,9 @@
       <div class="flex items-center gap-space-sm">
         <!-- Logo en móvil -->
         <a href="#dashboard" data-nav="dashboard" class="flex lg:hidden items-center gap-2 cursor-pointer">
-          <img alt="Psico Pausa" class="h-7 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VJfZdV4nwArBjch3gZ7-xqawnjOWyBWZmgvWhoM6FvFQ-XjIcVWa-VAJCOgAD6YoreJ5qiSw92diWK8YZZcyTCoDMl1mreSmQ5CRgf5f08gNlkL8tKJQW8EdmJ7xjyN8GAqQ2gjYsK2LkmdziAW6u13At4a22Nli-KZ3jaAiNI4O6Z6Vpe5HHxH-vZk2Y2-cl_vkEckGj4OKOyA6a9tXOyX0WES3oOM-ONqENfs7oI83mZVJVSoiUjjTk"/>
+          <div class="h-7 w-7 rounded-lg flex items-center justify-center flex-shrink-0" style="background:var(--md-sys-color-primary,#6750a4)">
+            <span class="material-symbols-outlined text-white" style="font-size:1rem">spa</span>
+          </div>
           <span class="font-headline-sm text-primary font-bold text-base sm:text-lg">Psico Pausa</span>
         </a>
 
@@ -200,17 +205,22 @@
 
         <div class="h-6 sm:h-8 w-px bg-outline-variant/40"></div>
 
-        <!-- Perfil del Practicante -->
-        <div class="flex items-center gap-space-sm pl-space-xs">
-          <div class="relative flex items-center justify-center">
-            <img alt="Perfil Camila R." class="w-8 h-8 rounded-full object-cover ring-2 ring-primary/20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0urJdvEqswFjOAIlV52rAjCp4mzRTDeRQ54QXNleVgiIXsGlWzf34sUq3W8cmf3jd_RPiTR7yIpKKMNo-dLlofxrtGM5F-BuJESotJW-7t1Al3hy6X_8eUEQYxLi0exRfeRnMKUhhZLpCZztmh4dHLMUb2xHeGfEqZ4AWhlGZvgWIPCkdvxLpYx4vGabOrORZe8SsD4IjPfIpybUd_S7IT1bgep3FUlc9t8C16yBlS4kyAafF7PfuCQ"/>
+        <!-- Perfil del Practicante (Personalizable) -->
+        <button type="button" id="header-profile-btn" class="flex items-center gap-space-sm pl-space-xs hover:bg-surface-container-high/60 p-1 sm:p-1.5 rounded-xl transition-all text-left cursor-pointer group" title="Haz clic para personalizar tu perfil">
+          <div class="relative flex items-center justify-center shrink-0">
+            <div id="header-profile-avatar" class="w-8 h-8 rounded-full bg-primary text-on-primary font-bold text-xs flex items-center justify-center ring-2 ring-primary/20 group-hover:ring-primary transition-all">
+              ES
+            </div>
             <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-primary ring-2 ring-surface"></span>
           </div>
-          <div class="hidden md:flex flex-col text-left">
-            <span class="font-label-lg text-label-lg text-on-surface leading-tight font-semibold">Camila R.</span>
-            <span class="font-label-sm text-label-sm text-on-surface-variant leading-tight">Interna de Psicología</span>
+          <div class="hidden md:flex flex-col text-left pr-1">
+            <div class="flex items-center gap-1">
+              <span id="header-profile-name" class="font-label-lg text-label-lg text-on-surface leading-tight font-semibold">Estudiante</span>
+              <span class="material-symbols-outlined text-xs text-on-surface-variant group-hover:text-primary transition-colors">edit</span>
+            </div>
+            <span id="header-profile-role" class="font-label-sm text-label-sm text-on-surface-variant leading-tight">Practicante de Psicología</span>
           </div>
-        </div>
+        </button>
 
       </div>
     </div>
@@ -232,8 +242,8 @@
 <span class="material-symbols-outlined text-base">search_off</span>
 <span>Descompresión post-práctica</span>
 </div>
-<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">
-          Hola Camila, cuidemos de ti antes de cuidar a otros.
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight" id="dashboard-greeting-title">
+          ¡Hola, <span id="dashboard-user-name">Estudiante</span>! Cuidemos de ti antes de cuidar a otros.
         </h1>
 <p class="font-body-md text-body-md text-on-surface-variant">
           ¿Cómo llega hoy tu cuerpo y tu mente tras tus sesiones clínicas? Tómate un instante sin juicios.
@@ -515,379 +525,414 @@
 
         <!-- ==================== VISTA 2: GIMNASIO DE REGULACIÓN EMOCIONAL ==================== -->
         <section id="view-regulacion" class="app-view hidden flex flex-col w-full gap-space-xl" data-title="Gimnasio de Regulación">
-<div class="max-w-7xl mx-auto w-full"><div class="flex flex-col w-full gap-space-xl">
-<!-- Header Contextual -->
-<header class="flex flex-col gap-space-sm max-w-4xl">
-<div class="flex items-center gap-space-xs text-primary font-label-md text-label-md tracking-wider uppercase">
-<span class="material-symbols-outlined text-sm">self_improvement</span>
-<span>Laboratorio Somático · Módulo Clínico</span>
-</div>
-<h1 class="font-display-lg text-display-lg text-on-surface tracking-tight">
-      Ejercicios de Regulación y Descompresión
-    </h1>
-<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-      Herramientas basadas en evidencia (Mindfulness, TCC y Somática) para regular el sistema nervioso tras la práctica clínica y amortiguar el desgaste por empatía.
-    </p>
-</header>
-<!-- Filtros de Categoría -->
-<nav aria-label="Categorías de regulación" class="flex flex-wrap items-center gap-space-xs">
-<button class="filter-btn active-filter px-space-md py-space-sm rounded-full font-label-lg text-label-lg transition-all duration-200 bg-primary text-on-primary shadow-sm flex items-center gap-space-xs" data-category="todos" type="button">
-<span>Todos</span>
-<span class="text-xs opacity-75 font-normal">(5)</span>
-</button>
-<button class="filter-btn px-space-md py-space-sm rounded-full font-label-lg text-label-lg transition-all duration-200 bg-surface-container hover:bg-surface-container-high text-on-surface-variant flex items-center gap-space-xs" data-category="urgente" type="button">
-<span class="material-symbols-outlined text-base text-secondary">bolt</span>
-<span>Urgente / Post-sesión difícil (&lt; 5 min)</span>
-</button>
-<button class="filter-btn px-space-md py-space-sm rounded-full font-label-lg text-label-lg transition-all duration-200 bg-surface-container hover:bg-surface-container-high text-on-surface-variant flex items-center gap-space-xs" data-category="respiracion" type="button">
-<span class="material-symbols-outlined text-base text-primary">air</span>
-<span>Respiración guiada</span>
-</button>
-<button class="filter-btn px-space-md py-space-sm rounded-full font-label-lg text-label-lg transition-all duration-200 bg-surface-container hover:bg-surface-container-high text-on-surface-variant flex items-center gap-space-xs" data-category="grounding" type="button">
-<span class="material-symbols-outlined text-base text-tertiary">nature_people</span>
-<span>Grounding &amp; Anclaje sensorial</span>
-</button>
-<button class="filter-btn px-space-md py-space-sm rounded-full font-label-lg text-label-lg transition-all duration-200 bg-surface-container hover:bg-surface-container-high text-on-surface-variant flex items-center gap-space-xs" data-category="defusion" type="button">
-<span class="material-symbols-outlined text-base text-outline">door_back</span>
-<span>Defusión cognitiva &amp; Fin de jornada</span>
-</button>
-</nav>
-<!-- Módulo Central Interactivo: Reproductor de Pausa Activa -->
-<section class="relative w-full rounded-xl bg-surface-container-lowest shadow-md overflow-hidden p-space-lg lg:p-space-xl flex flex-col lg:flex-row gap-space-xl items-center justify-between">
-<!-- Fondo suave con gradiente sutil sin bordes -->
-<div class="absolute inset-0 bg-gradient-to-tr from-primary-fixed/20 via-transparent to-secondary-fixed/20 pointer-events-none"></div>
-<!-- Columna Izquierda: Información de sesión & Pasos 5-4-3-2-1 -->
-<div class="relative z-10 flex-1 flex flex-col gap-space-md w-full">
-<div class="flex items-center gap-space-sm">
-<span class="px-space-sm py-space-xs rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm uppercase font-semibold">
-          Protocolo Inmediato
-        </span>
-<span class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant">
-<span class="material-symbols-outlined text-sm text-primary">schedule</span>
-          5 minutos
-        </span>
-</div>
-<div class="flex flex-col gap-1">
-<h2 class="font-headline-lg text-headline-lg text-on-surface">
-          Reproductor de Pausa Activa: Técnica Grounding 5-4-3-2-1
-        </h2>
-<p class="font-body-md text-body-md text-on-surface-variant">
-          Diseñado para reubicar tu foco cognitivo en el aquí y ahora luego de sesiones con alta carga transferencial o crisis agudas.
-        </p>
-</div>
-<!-- Pasos Guiados Interactivos -->
-<div class="mt-space-sm flex flex-col gap-space-xs" id="groundingStepsContainer">
-<!-- Paso 5 -->
-<div class="step-card active-step flex items-start gap-space-sm p-space-sm rounded-lg bg-surface-container-low transition-all duration-300" data-step="1">
-<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-headline-sm text-headline-sm flex-shrink-0">
-            5
+          <div class="max-w-7xl mx-auto w-full flex flex-col gap-space-xl">
+            
+            <!-- MODO 1: CATÁLOGO Y BIBLIOTECA SOMÁTICA (#regulation-catalog-view) -->
+            <div id="regulation-catalog-view" class="flex flex-col w-full gap-space-xl">
+              <!-- Header Contextual -->
+              <header class="flex flex-col gap-space-sm max-w-4xl">
+                <div class="flex items-center gap-space-xs text-primary font-label-md text-label-md tracking-wider uppercase">
+                  <span class="material-symbols-outlined text-sm">self_improvement</span>
+                  <span>Laboratorio Somático · Módulo Clínico</span>
+                </div>
+                <h1 class="font-display-lg text-display-lg text-on-surface tracking-tight">
+                  Ejercicios de Regulación y Descompresión
+                </h1>
+                <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                  Herramientas basadas en evidencia (Mindfulness, TCC y Somática) para regular el sistema nervioso tras la práctica clínica y amortiguar el desgaste por empatía.
+                </p>
+              </header>
+
+              <!-- Filtros de Categoría -->
+              <nav aria-label="Categorías de regulación" class="flex flex-wrap items-center gap-space-xs" id="regulation-filters-nav">
+                <button class="filter-btn active-filter px-space-md py-space-sm rounded-full font-label-lg text-label-lg transition-all duration-200 bg-primary text-on-primary shadow-sm flex items-center gap-space-xs cursor-pointer" data-category="todos" type="button">
+                  <span>Todos</span>
+                  <span class="text-xs opacity-80 font-normal" id="filter-count-todos">(4)</span>
+                </button>
+                <button class="filter-btn px-space-md py-space-sm rounded-full font-label-lg text-label-lg transition-all duration-200 bg-surface-container hover:bg-surface-container-high text-on-surface-variant flex items-center gap-space-xs cursor-pointer" data-category="urgente" type="button">
+                  <span class="material-symbols-outlined text-base text-secondary">bolt</span>
+                  <span>Urgente / Post-sesión difícil</span>
+                </button>
+                <button class="filter-btn px-space-md py-space-sm rounded-full font-label-lg text-label-lg transition-all duration-200 bg-surface-container hover:bg-surface-container-high text-on-surface-variant flex items-center gap-space-xs cursor-pointer" data-category="respiracion" type="button">
+                  <span class="material-symbols-outlined text-base text-primary">air</span>
+                  <span>Respiración guiada</span>
+                </button>
+                <button class="filter-btn px-space-md py-space-sm rounded-full font-label-lg text-label-lg transition-all duration-200 bg-surface-container hover:bg-surface-container-high text-on-surface-variant flex items-center gap-space-xs cursor-pointer" data-category="grounding" type="button">
+                  <span class="material-symbols-outlined text-base text-tertiary">nature_people</span>
+                  <span>Grounding &amp; Anclaje sensorial</span>
+                </button>
+                <button class="filter-btn px-space-md py-space-sm rounded-full font-label-lg text-label-lg transition-all duration-200 bg-surface-container hover:bg-surface-container-high text-on-surface-variant flex items-center gap-space-xs cursor-pointer" data-category="defusion" type="button">
+                  <span class="material-symbols-outlined text-base text-outline">door_back</span>
+                  <span>Defusión cognitiva &amp; Fin de jornada</span>
+                </button>
+              </nav>
+
+              <!-- Protocolo Inmediato Destacado: Técnica Grounding 5-4-3-2-1 -->
+              <section class="relative w-full rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden p-space-lg lg:p-space-xl flex flex-col md:flex-row gap-space-lg items-center justify-between border border-outline-variant/30" data-categories="todos grounding urgente">
+                <div class="flex-1 flex flex-col gap-space-sm">
+                  <div class="flex items-center gap-space-sm flex-wrap">
+                    <span class="px-space-sm py-space-xs rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm uppercase font-semibold">
+                      Protocolo Inmediato
+                    </span>
+                    <span class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant">
+                      <span class="material-symbols-outlined text-sm text-primary">schedule</span>
+                      5 minutos · Sensorial
+                    </span>
+                  </div>
+                  <h2 class="font-headline-lg text-headline-lg text-on-surface">
+                    Técnica Grounding 5-4-3-2-1
+                  </h2>
+                  <p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+                    Reorientación cognitiva y anclaje al presente a través de los 5 canales sensoriales (Vista, Tacto, Oído, Olfato y Gusto). Ideal tras situaciones de intensa sobrecarga empática o shock clínico.
+                  </p>
+                  <div class="flex flex-wrap gap-2 pt-1">
+                    <span class="px-2.5 py-1 rounded-lg bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm">5 Ver</span>
+                    <span class="px-2.5 py-1 rounded-lg bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm">4 Tocar</span>
+                    <span class="px-2.5 py-1 rounded-lg bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm">3 Oír</span>
+                    <span class="px-2.5 py-1 rounded-lg bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm">2 Oler</span>
+                    <span class="px-2.5 py-1 rounded-lg bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm">1 Saborear</span>
+                  </div>
+                </div>
+                <div class="flex flex-col sm:flex-row md:flex-col items-center gap-3 w-full md:w-auto flex-shrink-0">
+                  <button class="exercise-launch-btn w-full md:w-auto px-space-xl py-space-md rounded-xl bg-primary text-on-primary font-label-lg text-label-lg hover:bg-primary-container transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm active:scale-95" id="launch-grounding-btn" data-exercise="grounding" type="button">
+                    <span class="material-symbols-outlined text-xl">play_arrow</span>
+                    <span>Comenzar Grounding</span>
+                  </button>
+                </div>
+              </section>
+
+              <!-- Métricas Rápidas Somáticas de Sesión -->
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+                <div class="p-space-md rounded-xl bg-surface-container-low flex items-center gap-space-md">
+                  <div class="w-12 h-12 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center flex-shrink-0">
+                    <span class="material-symbols-outlined text-2xl">vital_signs</span>
+                  </div>
+                  <div class="flex flex-col min-w-0">
+                    <span class="font-headline-sm text-headline-sm text-on-surface leading-tight">Ritmo Cardíaco Estimado</span>
+                    <span class="font-body-sm text-body-sm text-on-surface-variant">Desaceleración de 82 a 71 lpm durante la pausa</span>
+                  </div>
+                </div>
+                <div class="p-space-md rounded-xl bg-surface-container-low flex items-center gap-space-md">
+                  <div class="w-12 h-12 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center flex-shrink-0">
+                    <span class="material-symbols-outlined text-2xl">spa</span>
+                  </div>
+                  <div class="flex flex-col min-w-0">
+                    <span class="font-headline-sm text-headline-sm text-on-surface leading-tight">Activación Vagal</span>
+                    <span class="font-body-sm text-body-sm text-on-surface-variant">Tono parasimpático restaurado con éxito</span>
+                  </div>
+                </div>
+                <div class="p-space-md rounded-xl bg-surface-container-low flex items-center gap-space-md">
+                  <div class="w-12 h-12 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center flex-shrink-0">
+                    <span class="material-symbols-outlined text-2xl">psychology_alt</span>
+                  </div>
+                  <div class="flex flex-col min-w-0">
+                    <span class="font-headline-sm text-headline-sm text-on-surface leading-tight">Higiene Contratransferencial</span>
+                    <span class="font-body-sm text-body-sm text-on-surface-variant">3 pausas de descompresión completadas hoy</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Catálogo de Ejercicios en Grid -->
+              <div class="flex flex-col gap-space-md">
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-space-xs">
+                  <div>
+                    <h2 class="font-headline-md text-headline-md text-on-surface">Catálogo de Protocolos Somáticos</h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant">Micro-prácticas seleccionadas para intervalos clínicos entre consultas.</p>
+                  </div>
+                  <span class="font-label-sm text-label-sm text-on-surface-variant" id="catalog-counter-text">Mostrando 4 ejercicios complementarios</span>
+                </div>
+
+                <!-- GRID EQUILIBRADO DE 4 TARJETAS: 2 COLUMNAS EN COMPUTADOR, 1 COLUMNA EN CELULAR -->
+                <div id="protocols-grid" class="grid grid-cols-1 md:grid-cols-2 gap-space-lg w-full">
+                  
+                  <!-- Tarjeta 1: Respiración 4-7-8 -->
+                  <article class="exercise-card rounded-xl bg-surface-container-lowest p-space-lg shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between gap-space-md h-full" data-categories="todos respiracion urgente">
+                    <div class="flex flex-col gap-space-sm">
+                      <div class="flex items-center justify-between gap-space-xs">
+                        <span class="px-space-sm py-space-xs rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">
+                          Respiración Guiada
+                        </span>
+                        <div class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant">
+                          <span class="material-symbols-outlined text-base text-primary">timer</span>
+                          <span>4 min</span>
+                        </div>
+                      </div>
+                      <div class="relative w-full h-44 rounded-lg overflow-hidden my-space-xs" style="background:linear-gradient(135deg,#e8d5f5 0%,#c4b5e8 40%,#a898d4 100%)">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                          <span class="material-symbols-outlined text-primary/40" style="font-size:5rem">self_improvement</span>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/50 via-transparent to-transparent flex items-end p-space-sm">
+                          <span class="font-label-sm text-label-sm text-on-error bg-error/90 px-space-sm py-0.5 rounded-full font-semibold">Post-crisis</span>
+                        </div>
+                      </div>
+                      <h3 class="font-headline-sm text-headline-sm text-on-surface">Respiración Diafragmática 4-7-8</h3>
+                      <p class="font-body-sm text-body-sm text-on-surface-variant">
+                        Desacelera el ritmo cardíaco e interrumpe la sobreestimulación simpática tras atender situaciones de crisis o desbordes afectivos intensos.
+                      </p>
+                    </div>
+                    <div class="flex items-center justify-between pt-space-xs mt-auto">
+                      <div class="flex flex-col">
+                        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Esfuerzo</span>
+                        <span class="font-label-md text-label-md text-primary font-semibold">Muy Suave · Sentado</span>
+                      </div>
+                      <button class="exercise-launch-btn px-space-md py-space-sm rounded-xl bg-primary text-on-primary font-label-lg text-label-lg hover:bg-primary-container transition-all flex items-center gap-1 cursor-pointer shadow-sm active:scale-95" id="launch-478-btn" data-exercise="4-7-8" type="button">
+                        <span class="material-symbols-outlined text-base">play_arrow</span>
+                        <span>Comenzar</span>
+                      </button>
+                    </div>
+                  </article>
+
+                  <!-- Tarjeta 2: Sacudida Somática -->
+                  <article class="exercise-card rounded-xl bg-surface-container-lowest p-space-lg shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between gap-space-md h-full" data-categories="todos grounding">
+                    <div class="flex flex-col gap-space-sm">
+                      <div class="flex items-center justify-between gap-space-xs">
+                        <span class="px-space-sm py-space-xs rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">
+                          Liberación Somática
+                        </span>
+                        <div class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant">
+                          <span class="material-symbols-outlined text-base text-secondary">timer</span>
+                          <span>6 min</span>
+                        </div>
+                      </div>
+                      <div class="relative w-full h-44 rounded-lg overflow-hidden my-space-xs" style="background:linear-gradient(135deg,#d4edda 0%,#a8d5a2 40%,#7ec885 100%)">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                          <span class="material-symbols-outlined text-secondary/40" style="font-size:5rem">directions_walk</span>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/50 via-transparent to-transparent flex items-end p-space-sm">
+                          <span class="font-label-sm text-label-sm text-on-primary bg-primary/90 px-space-sm py-0.5 rounded-full font-semibold">Movimiento Físico</span>
+                        </div>
+                      </div>
+                      <h3 class="font-headline-sm text-headline-sm text-on-surface">Sacudida somática y liberación muscular</h3>
+                      <p class="font-body-sm text-body-sm text-on-surface-variant">
+                        Libera la hipertonía postural y el agarrotamiento en hombros, cuello y mandíbula acumulados durante horas de escucha empática profunda.
+                      </p>
+                    </div>
+                    <div class="flex items-center justify-between pt-space-xs mt-auto">
+                      <div class="flex flex-col">
+                        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Esfuerzo</span>
+                        <span class="font-label-md text-label-md text-secondary font-semibold">Moderado · De pie</span>
+                      </div>
+                      <button class="exercise-launch-btn px-space-md py-space-sm rounded-xl bg-primary text-on-primary font-label-lg text-label-lg hover:bg-primary-container transition-all flex items-center gap-1 cursor-pointer shadow-sm active:scale-95" id="launch-sacudida-btn" data-exercise="sacudida" type="button">
+                        <span class="material-symbols-outlined text-base">play_arrow</span>
+                        <span>Comenzar</span>
+                      </button>
+                    </div>
+                  </article>
+
+                  <!-- Tarjeta 3: Defusión y Cierre -->
+                  <article class="exercise-card rounded-xl bg-surface-container-lowest p-space-lg shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between gap-space-md h-full" data-categories="todos defusion">
+                    <div class="flex flex-col gap-space-sm">
+                      <div class="flex items-center justify-between gap-space-xs">
+                        <span class="px-space-sm py-space-xs rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">
+                          Defusión &amp; Cierre
+                        </span>
+                        <div class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant">
+                          <span class="material-symbols-outlined text-base text-tertiary">timer</span>
+                          <span>8 min</span>
+                        </div>
+                      </div>
+                      <div class="relative w-full h-44 rounded-lg overflow-hidden my-space-xs" style="background:linear-gradient(135deg,#fef3c7 0%,#fde68a 40%,#f59e0b 100%)">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                          <span class="material-symbols-outlined text-on-surface/20" style="font-size:5rem">book</span>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/50 via-transparent to-transparent flex items-end p-space-sm">
+                          <span class="font-label-sm text-label-sm text-on-surface bg-surface-container-high/90 px-space-sm py-0.5 rounded-full font-semibold">Fin de Turno</span>
+                        </div>
+                      </div>
+                      <h3 class="font-headline-sm text-headline-sm text-on-surface">El ritual de desprendimiento del rol</h3>
+                      <p class="font-body-sm text-body-sm text-on-surface-variant">
+                        Visualización simbólica para depositar historias, dolores y demandas clínicas en el consultorio antes de volver a tu vida personal.
+                      </p>
+                    </div>
+                    <div class="flex items-center justify-between pt-space-xs mt-auto">
+                      <div class="flex flex-col">
+                        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Esfuerzo</span>
+                        <span class="font-label-md text-label-md text-tertiary font-semibold">Introspectivo · Sentado</span>
+                      </div>
+                      <button class="exercise-launch-btn px-space-md py-space-sm rounded-xl bg-primary text-on-primary font-label-lg text-label-lg hover:bg-primary-container transition-all flex items-center gap-1 cursor-pointer shadow-sm active:scale-95" id="launch-ritual-btn" data-exercise="ritual" type="button">
+                        <span class="material-symbols-outlined text-base">play_arrow</span>
+                        <span>Comenzar</span>
+                      </button>
+                    </div>
+                  </article>
+
+                  <!-- Tarjeta 4: Variabilidad Cardíaca -->
+                  <article class="exercise-card rounded-xl bg-surface-container-lowest p-space-lg shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between gap-space-md h-full" data-categories="todos respiracion">
+                    <div class="flex flex-col gap-space-sm">
+                      <div class="flex items-center justify-between gap-space-xs">
+                        <span class="px-space-sm py-space-xs rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">
+                          Variabilidad Cardíaca
+                        </span>
+                        <div class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant">
+                          <span class="material-symbols-outlined text-base text-primary">timer</span>
+                          <span>10 min</span>
+                        </div>
+                      </div>
+                      <div class="relative w-full h-44 rounded-lg overflow-hidden my-space-xs bg-surface-container-low flex flex-col justify-between p-space-sm">
+                        <div class="flex justify-between items-center text-on-surface-variant font-label-sm text-label-sm">
+                          <span>Ritmo de 5.5 rpm</span>
+                          <span class="text-primary font-semibold">Coherencia Óptima</span>
+                        </div>
+                        <svg class="w-full h-20 text-primary stroke-current fill-none" viewBox="0 0 300 60">
+                          <path d="M 0 30 Q 25 5, 50 30 T 100 30 T 150 30 T 200 30 T 250 30 T 300 30" stroke-linecap="round" stroke-width="3"></path>
+                          <path d="M 0 30 Q 25 5, 50 30 T 100 30 T 150 30 T 200 30 T 250 30 T 300 30" opacity="0.3" stroke-dasharray="4 4" stroke-width="1"></path>
+                        </svg>
+                        <span class="font-label-sm text-label-sm text-on-surface-variant text-right">0.1 Hz resonancia</span>
+                      </div>
+                      <h3 class="font-headline-sm text-headline-sm text-on-surface">Respiración de Resonancia Coherente</h3>
+                      <p class="font-body-sm text-body-sm text-on-surface-variant">
+                        Pauta respiratoria de 5.5 respiraciones por minuto para inducir máxima sincronía entre el sistema cardiovascular y cerebral.
+                      </p>
+                    </div>
+                    <div class="flex items-center justify-between pt-space-xs mt-auto">
+                      <div class="flex flex-col">
+                        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Esfuerzo</span>
+                        <span class="font-label-md text-label-md text-primary font-semibold">Calmo · Cualquier postura</span>
+                      </div>
+                      <button class="exercise-launch-btn px-space-md py-space-sm rounded-xl bg-primary text-on-primary font-label-lg text-label-lg hover:bg-primary-container transition-all flex items-center gap-1 cursor-pointer shadow-sm active:scale-95" id="launch-coherencia-btn" data-exercise="coherencia" type="button">
+                        <span class="material-symbols-outlined text-base">play_arrow</span>
+                        <span>Comenzar</span>
+                      </button>
+                    </div>
+                  </article>
+
+                </div>
+              </div>
+
+              <!-- Recomendación de Autocuidado al Pie -->
+              <aside class="w-full p-space-lg rounded-xl bg-secondary-fixed/50 flex flex-col sm:flex-row items-center justify-between gap-space-md shadow-sm">
+                <div class="flex items-center gap-space-md">
+                  <div class="w-12 h-12 rounded-full bg-secondary text-on-secondary flex items-center justify-center flex-shrink-0">
+                    <span class="material-symbols-outlined text-2xl">wb_sunny</span>
+                  </div>
+                  <div class="flex flex-col">
+                    <span class="font-headline-sm text-headline-sm text-on-secondary-fixed">Micro-hábito del terapeuta</span>
+                    <p class="font-body-md text-body-md text-on-secondary-container">
+                      Recuerda hidratarte y tomar 5 minutos de luz solar entre pacientes. Tu propio cuerpo es el primer instrumento de sostén clínico.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-space-sm flex-shrink-0">
+                  <button class="px-space-md py-space-sm rounded-xl bg-surface-container-lowest text-secondary font-label-lg text-label-lg hover:bg-surface-container transition-all flex items-center gap-1 shadow-sm cursor-pointer" id="hydrateLogBtn" type="button">
+                    <span class="material-symbols-outlined text-base text-secondary">water_drop</span>
+                    <span>Tomé agua</span>
+                  </button>
+                </div>
+              </aside>
+
+            </div>
+
+            <!-- MODO 2: INTERFAZ DE EJECUCIÓN ESPECÍFICA (#regulation-execution-view) -->
+            <div id="regulation-execution-view" class="hidden flex-col w-full gap-space-lg">
+              
+              <!-- Barra Superior de Navegación del Ejercicio -->
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-xs border-b border-outline-variant/30">
+                <button class="self-start px-space-md py-space-sm rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md flex items-center gap-2 transition-all cursor-pointer shadow-sm active:scale-95" id="exec-back-btn" type="button">
+                  <span class="material-symbols-outlined text-base">arrow_back</span>
+                  <span>← Volver al Catálogo de Protocolos</span>
+                </button>
+                <div class="flex items-center gap-space-xs">
+                  <span class="px-space-sm py-space-xs rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold" id="exec-badge-category">
+                    Respiración Guiada
+                  </span>
+                  <span class="px-space-sm py-space-xs rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm" id="exec-badge-effort">
+                    4 min · Muy Suave
+                  </span>
+                </div>
+              </div>
+
+              <!-- Cabecera del Ejercicio Activo -->
+              <header class="flex flex-col gap-1">
+                <h2 class="font-display-md text-display-md text-on-surface tracking-tight" id="exec-title">
+                  Respiración Diafragmática 4-7-8
+                </h2>
+                <p class="font-body-md text-body-md text-on-surface-variant max-w-3xl" id="exec-desc">
+                  Desacelera el ritmo cardíaco e interrumpe la sobreestimulación simpática tras atender situaciones de crisis o desbordes afectivos intensos.
+                </p>
+              </header>
+
+              <!-- Panel Central de Ejecución: Contenido Dinámico + Reproductor Somático -->
+              <div class="relative w-full rounded-2xl bg-surface-container-lowest shadow-md overflow-hidden p-space-lg lg:p-space-xl flex flex-col lg:flex-row gap-space-xl items-center justify-between border border-outline-variant/20">
+                <!-- Fondo sutil con gradiente -->
+                <div class="absolute inset-0 bg-gradient-to-tr from-primary-fixed/20 via-transparent to-secondary-fixed/20 pointer-events-none"></div>
+
+                <!-- Columna Izquierda: Instrucciones y Fases Adaptativas -->
+                <div class="relative z-10 flex-1 flex flex-col gap-space-md w-full" id="exec-interactive-left">
+                  <!-- Renderizado dinámico según el ejercicio -->
+                </div>
+
+                <!-- Columna Derecha: Visualizador y Controles del Ejercicio -->
+                <div class="relative z-10 w-full lg:w-96 flex flex-col items-center justify-center bg-surface-container-low p-space-lg rounded-xl shadow-sm">
+                  
+                  <!-- Visualizador Adaptativo (Orbe, Pulso Somático, Onda Coherente o Foco Ritual) -->
+                  <div class="relative w-52 h-52 flex items-center justify-center my-space-md" id="exec-visual-container">
+                    <div class="absolute w-48 h-48 rounded-full bg-primary-fixed/40 transition-transform duration-1000 ease-in-out scale-110" id="exec-orbOuter"></div>
+                    <div class="absolute w-36 h-36 rounded-full bg-tertiary-fixed/60 transition-transform duration-700 ease-in-out" id="exec-orbMiddle"></div>
+                    <div class="relative z-10 w-28 h-28 rounded-full bg-primary text-on-primary flex flex-col items-center justify-center shadow-lg transition-transform duration-500 text-center p-space-xs" id="exec-orbCore">
+                      <span class="material-symbols-outlined text-2xl text-on-primary" id="exec-orbIcon">air</span>
+                      <span class="font-label-sm text-label-sm font-semibold tracking-wide" id="exec-orbPhaseText">Inhala</span>
+                    </div>
+                  </div>
+
+                  <!-- Selector de Modo de Audio y Silencio -->
+                  <div class="w-full flex items-center justify-between bg-surface-container rounded-lg p-space-xs mb-space-md gap-1">
+                    <button class="flex-1 py-1.5 px-space-sm rounded-md font-label-sm text-label-sm font-semibold bg-surface-container-lowest text-on-surface shadow-sm transition-all text-center flex items-center justify-center gap-1 cursor-pointer" id="exec-soundVoiceBtn" type="button" title="Instrucciones guiadas por voz">
+                      <span class="material-symbols-outlined text-sm text-primary">record_voice_over</span>
+                      <span>Voz cálida</span>
+                    </button>
+                    <button class="flex-1 py-1.5 px-space-sm rounded-md font-label-sm text-label-sm font-medium text-on-surface-variant hover:text-on-surface transition-all text-center flex items-center justify-center gap-1 cursor-pointer" id="exec-soundBellsBtn" type="button" title="Campanas tibetanas">
+                      <span class="material-symbols-outlined text-sm">notifications_active</span>
+                      <span>Campanas</span>
+                    </button>
+                    <button class="py-1.5 px-space-sm rounded-md font-label-sm text-label-sm font-medium text-on-surface-variant hover:text-on-surface transition-all text-center flex items-center justify-center gap-1 cursor-pointer" id="exec-soundMuteBtn" type="button" title="Activar o desactivar sonido">
+                      <span class="material-symbols-outlined text-sm" id="exec-soundMuteIcon">volume_up</span>
+                      <span class="hidden sm:inline" id="exec-soundMuteLabel">Sonido</span>
+                    </button>
+                  </div>
+
+                  <!-- Barra de Progreso y Tiempo -->
+                  <div class="w-full flex flex-col gap-1 mb-space-md">
+                    <div class="w-full h-2 rounded-full bg-surface-container overflow-hidden">
+                      <div class="h-full bg-primary transition-all duration-300 rounded-full" id="exec-progressBar" style="width: 0%;"></div>
+                    </div>
+                    <div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant">
+                      <span id="exec-timeElapsed">00:00</span>
+                      <span id="exec-timeTotal">04:00</span>
+                    </div>
+                  </div>
+
+                  <!-- Controles de Reproducción -->
+                  <div class="flex items-center justify-center gap-space-md w-full">
+                    <button class="w-10 h-10 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant flex items-center justify-center transition-all cursor-pointer active:scale-95" id="exec-prevBtn" title="Reiniciar ejercicio" type="button">
+                      <span class="material-symbols-outlined text-xl">skip_previous</span>
+                    </button>
+                    <button class="w-14 h-14 rounded-full bg-primary hover:bg-primary-container text-on-primary flex items-center justify-center shadow-md transition-transform active:scale-95 cursor-pointer" id="exec-playPauseBtn" type="button" title="Iniciar o pausar ejercicio">
+                      <span class="material-symbols-outlined text-3xl" id="exec-playIcon">play_arrow</span>
+                    </button>
+                    <button class="w-10 h-10 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant flex items-center justify-center transition-all cursor-pointer active:scale-95" id="exec-nextBtn" title="Avanzar de fase" type="button">
+                      <span class="material-symbols-outlined text-xl">skip_next</span>
+                    </button>
+                  </div>
+
+                  <!-- Estado vivo de la práctica -->
+                  <p class="font-label-sm text-label-sm text-on-surface-variant text-center mt-space-sm" id="exec-playerStatus">
+                    Pulsa reproducir para iniciar la guía
+                  </p>
+
+                </div>
+              </div>
+
+              <!-- Botón Inferior para Concluir la Práctica -->
+              <div class="flex justify-center pt-space-xs">
+                <button class="px-space-xl py-space-sm rounded-xl bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-lg transition-all flex items-center gap-2 cursor-pointer shadow-sm active:scale-95" id="exec-finish-bottom-btn" type="button">
+                  <span class="material-symbols-outlined text-base text-primary">check_circle</span>
+                  <span>Finalizar práctica y volver al Catálogo</span>
+                </button>
+              </div>
+
+            </div>
+
           </div>
-<div class="flex flex-col">
-<span class="font-label-lg text-label-lg text-on-surface">Observa 5 cosas que puedes ver</span>
-<span class="font-body-sm text-body-sm text-on-surface-variant">Fija la mirada en detalles físicos: textura del sillón, reflejo de la luz, el reloj, tus manos.</span>
-</div>
-</div>
-<!-- Paso 4 -->
-<div class="step-card flex items-start gap-space-sm p-space-sm rounded-lg bg-surface-container/40 transition-all duration-300" data-step="2">
-<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-headline-sm text-headline-sm flex-shrink-0">
-            4
-          </div>
-<div class="flex flex-col">
-<span class="font-label-lg text-label-lg text-on-surface">Siente 4 cosas que puedes tocar</span>
-<span class="font-body-sm text-body-sm text-on-surface-variant">El peso de tus pies en el suelo, la tela del pantalón, la temperatura de tu taza o la mesa.</span>
-</div>
-</div>
-<!-- Paso 3 -->
-<div class="step-card flex items-start gap-space-sm p-space-sm rounded-lg bg-surface-container/40 transition-all duration-300" data-step="3">
-<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-headline-sm text-headline-sm flex-shrink-0">
-            3
-          </div>
-<div class="flex flex-col">
-<span class="font-label-lg text-label-lg text-on-surface">Identifica 3 sonidos que puedes oír</span>
-<span class="font-body-sm text-body-sm text-on-surface-variant">El murmullo exterior, la ventilación, o el timbre de tu propia respiración calmada.</span>
-</div>
-</div>
-<!-- Paso 2 -->
-<div class="step-card flex items-start gap-space-sm p-space-sm rounded-lg bg-surface-container/40 transition-all duration-300" data-step="4">
-<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-headline-sm text-headline-sm flex-shrink-0">
-            2
-          </div>
-<div class="flex flex-col">
-<span class="font-label-lg text-label-lg text-on-surface">Percibe 2 aromas a tu alrededor</span>
-<span class="font-body-sm text-body-sm text-on-surface-variant">El café recién preparado, el aroma de papel o la frescura del ambiente ventilado.</span>
-</div>
-</div>
-<!-- Paso 1 -->
-<div class="step-card flex items-start gap-space-sm p-space-sm rounded-lg bg-surface-container/40 transition-all duration-300" data-step="5">
-<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-headline-sm text-headline-sm flex-shrink-0">
-            1
-          </div>
-<div class="flex flex-col">
-<span class="font-label-lg text-label-lg text-on-surface">Saborea 1 sensación en tu boca</span>
-<span class="font-body-sm text-body-sm text-on-surface-variant">Toma un sorbo de agua fresca, nota la saliva o la frescura de un caramelo de menta.</span>
-</div>
-</div>
-</div>
-</div>
-<!-- Columna Derecha: Orbe Somático & Controles Audio-guía -->
-<div class="relative z-10 w-full lg:w-96 flex flex-col items-center justify-center bg-surface-container-low p-space-lg rounded-xl shadow-sm">
-<!-- Orbe de Respiración Relajante -->
-<div class="relative w-52 h-52 flex items-center justify-center my-space-md">
-<!-- Anillos pulsantes con CSS Vanilla -->
-<div class="absolute w-48 h-48 rounded-full bg-primary-fixed/40 transition-transform duration-1000 ease-in-out scale-110" id="orbGlowOuter"></div>
-<div class="absolute w-36 h-36 rounded-full bg-tertiary-fixed/60 transition-transform duration-700 ease-in-out" id="orbGlowMiddle"></div>
-<div class="relative z-10 w-28 h-28 rounded-full bg-primary text-on-primary flex flex-col items-center justify-center shadow-lg transition-transform duration-500 text-center p-space-xs" id="orbCore">
-<span class="material-symbols-outlined text-2xl text-on-primary">air</span>
-<span class="font-label-sm text-label-sm font-semibold tracking-wide" id="breathPhaseText">Inhala</span>
-</div>
-</div>
-<!-- Selector de Audio Guiado -->
-<div class="w-full flex items-center justify-between bg-surface-container rounded-lg p-space-xs mb-space-md">
-<button class="flex-1 py-1.5 px-space-sm rounded-md font-label-sm text-label-sm font-medium bg-surface-container-lowest text-on-surface shadow-sm transition-all text-center flex items-center justify-center gap-1" id="soundVoiceBtn" type="button">
-<span class="material-symbols-outlined text-sm text-primary">record_voice_over</span>
-          Voz cálida
-        </button>
-<button class="flex-1 py-1.5 px-space-sm rounded-md font-label-sm text-label-sm font-medium text-on-surface-variant hover:text-on-surface transition-all text-center flex items-center justify-center gap-1" id="soundBellsBtn" type="button">
-<span class="material-symbols-outlined text-sm">notifications_active</span>
-          Campanas tibetanas
-        </button>
-</div>
-<!-- Barra de Progreso y Tiempo -->
-<div class="w-full flex flex-col gap-1 mb-space-md">
-<div class="w-full h-2 rounded-full bg-surface-container overflow-hidden">
-<div class="h-full bg-primary transition-all duration-500 rounded-full" id="activeProgressBar" style="width: 55%;"></div>
-</div>
-<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant">
-<span id="timeElapsed">02:45</span>
-<span>05:00</span>
-</div>
-</div>
-<!-- Controles de Reproducción -->
-<div class="flex items-center justify-center gap-space-md w-full">
-<button class="w-10 h-10 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant flex items-center justify-center transition-all" id="prevStepBtn" title="Paso anterior" type="button">
-<span class="material-symbols-outlined text-xl">skip_previous</span>
-</button>
-<button class="w-14 h-14 rounded-full bg-primary hover:bg-primary-container text-on-primary flex items-center justify-center shadow-md transition-transform active:scale-95" id="mainPlayPauseBtn" type="button">
-<span class="material-symbols-outlined text-3xl" id="mainPlayIcon">pause</span>
-</button>
-<button class="w-10 h-10 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant flex items-center justify-center transition-all" id="nextStepBtn" title="Paso siguiente" type="button">
-<span class="material-symbols-outlined text-xl">skip_next</span>
-</button>
-</div>
-<p class="font-label-sm text-label-sm text-on-surface-variant text-center mt-space-sm">
-        Paso 1 de 5 · Anclaje visual activado
-      </p>
-</div>
-</section>
-<!-- Métricas Rápidas Somáticas de Sesión -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
-<div class="p-space-md rounded-xl bg-surface-container-low flex items-center gap-space-md">
-<div class="w-12 h-12 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center flex-shrink-0">
-<span class="material-symbols-outlined text-2xl">vital_signs</span>
-</div>
-<div class="flex flex-col min-w-0">
-<span class="font-headline-sm text-headline-sm text-on-surface leading-tight">Ritmo Cardíaco Estimado</span>
-<span class="font-body-sm text-body-sm text-on-surface-variant">Desaceleración de 82 a 71 lpm durante la pausa</span>
-</div>
-</div>
-<div class="p-space-md rounded-xl bg-surface-container-low flex items-center gap-space-md">
-<div class="w-12 h-12 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center flex-shrink-0">
-<span class="material-symbols-outlined text-2xl">spa</span>
-</div>
-<div class="flex flex-col min-w-0">
-<span class="font-headline-sm text-headline-sm text-on-surface leading-tight">Activación Vagal</span>
-<span class="font-body-sm text-body-sm text-on-surface-variant">Tono parasimpático restaurado con éxito</span>
-</div>
-</div>
-<div class="p-space-md rounded-xl bg-surface-container-low flex items-center gap-space-md">
-<div class="w-12 h-12 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center flex-shrink-0">
-<span class="material-symbols-outlined text-2xl">psychology_alt</span>
-</div>
-<div class="flex flex-col min-w-0">
-<span class="font-headline-sm text-headline-sm text-on-surface leading-tight">Higiene Contratransferencial</span>
-<span class="font-body-sm text-body-sm text-on-surface-variant">3 pausas de descompresión completadas hoy</span>
-</div>
-</div>
-</div>
-<!-- Catálogo de Ejercicios en Grid -->
-<div class="flex flex-col gap-space-md">
-<div class="flex flex-col sm:flex-row sm:items-end justify-between gap-space-xs">
-<div>
-<h2 class="font-headline-md text-headline-md text-on-surface">Catálogo de Protocolos Somáticos</h2>
-<p class="font-body-md text-body-md text-on-surface-variant">Micro-prácticas seleccionadas para intervalos clínicos entre consultas.</p>
-</div>
-<span class="font-label-sm text-label-sm text-on-surface-variant">Mostrando 4 ejercicios complementarios</span>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg">
-<!-- Tarjeta 1: Respiración 4-7-8 -->
-<article class="exercise-card rounded-xl bg-surface-container-lowest p-space-lg shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between gap-space-md" data-categories="todos respiracion urgente">
-<div class="flex flex-col gap-space-sm">
-<div class="flex items-center justify-between gap-space-xs">
-<span class="px-space-sm py-space-xs rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">
-              Respiración Guiada
-            </span>
-<div class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant">
-<span class="material-symbols-outlined text-base text-primary">timer</span>
-<span>4 min</span>
-</div>
-</div>
-<div class="relative w-full h-36 rounded-lg overflow-hidden my-space-xs">
-<img class="w-full h-full object-cover" data-alt="A tranquil, minimalist clinical therapist room in soft natural light, warm sage tones, comfortable linen chair and a peaceful window with lush garden view, warm cinematic photography style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqf-bcbKlZZnDmKmcI8v8srw_JX0CAUWMEeZGn_1brd-vOQWyg30W5L0-xMa44nIgI8twc17TLpId-EOU8ogca8sQjbIAvnpJbCIOwNXudDb1_dLXGylRwba31gbIXaGo8XppxEjR8XsoNNxrnJjXntR6fq-kcjZXCfdTI5iENurm2HDm5ah9ngF4uImknazb6FqLMiEf1w67ZtUaQbkiMRTxv6DZBqoIvUOxLKE8BOw8U9Zhk2EGWOA"/>
-<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/60 via-transparent to-transparent flex items-end p-space-sm">
-<span class="font-label-sm text-label-sm text-on-error bg-error/90 px-space-sm py-0.5 rounded-full font-semibold">Post-crisis</span>
-</div>
-</div>
-<h3 class="font-headline-sm text-headline-sm text-on-surface">Respiración Diafragmática 4-7-8</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant">
-            Desacelera el ritmo cardíaco e interrumpe la sobreestimulación simpática tras atender situaciones de crisis o desbordes afectivos intensos.
-          </p>
-</div>
-<div class="flex items-center justify-between pt-space-xs">
-<div class="flex flex-col">
-<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Esfuerzo</span>
-<span class="font-label-md text-label-md text-primary font-semibold">Muy Suave · Sentado</span>
-</div>
-<button class="exercise-launch-btn px-space-md py-space-sm rounded-xl bg-primary text-on-primary font-label-lg text-label-lg hover:bg-primary-container transition-all flex items-center gap-1" type="button">
-<span class="material-symbols-outlined text-base">play_arrow</span>
-<span>Comenzar</span>
-</button>
-</div>
-</article>
-<!-- Tarjeta 2: Sacudida Somática -->
-<article class="exercise-card rounded-xl bg-surface-container-lowest p-space-lg shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between gap-space-md" data-categories="todos grounding">
-<div class="flex flex-col gap-space-sm">
-<div class="flex items-center justify-between gap-space-xs">
-<span class="px-space-sm py-space-xs rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">
-              Liberación Somática
-            </span>
-<div class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant">
-<span class="material-symbols-outlined text-base text-secondary">timer</span>
-<span>6 min</span>
-</div>
-</div>
-<div class="relative w-full h-36 rounded-lg overflow-hidden my-space-xs">
-<img class="w-full h-full object-cover" data-alt="A female psychology trainee in loose earth-tone clothing practicing gentle grounding stretching in a warm sunlit therapy office, cinematic soft lens blur, terracotta and sage hues" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNka7IfI837Yot_Xh_TAg_jn-h2gn9xnRRAU37AEVHqIKUTVGgrkt62gcS2BIFUy8GEJZ1EyYjnCiuKQEqW5ZjQSSM36ix91x6OiU_A3aosdjejcd5wPZPeGx0EAciiLd3PY-MS8L3viM1MfkNwtSj859fjueTjzZRmC8pvisDZzloGNq_GOJtHXe-BeHO6iCGJaBXL_XWhNY6oCrJlOCQeVmOeRVgsE_zEe0viG4E3ENB3OMPbZnT5Q"/>
-<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/60 via-transparent to-transparent flex items-end p-space-sm">
-<span class="font-label-sm text-label-sm text-on-primary bg-primary/90 px-space-sm py-0.5 rounded-full font-semibold">Movimiento Físico</span>
-</div>
-</div>
-<h3 class="font-headline-sm text-headline-sm text-on-surface">Sacudida somática y liberación muscular</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant">
-            Libera la hipertonía postural y el agarrotamiento en hombros, cuello y mandíbula acumulados durante horas de escucha empática profunda.
-          </p>
-</div>
-<div class="flex items-center justify-between pt-space-xs">
-<div class="flex flex-col">
-<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Esfuerzo</span>
-<span class="font-label-md text-label-md text-secondary font-semibold">Moderado · De pie</span>
-</div>
-<button class="exercise-launch-btn px-space-md py-space-sm rounded-xl bg-primary text-on-primary font-label-lg text-label-lg hover:bg-primary-container transition-all flex items-center gap-1" type="button">
-<span class="material-symbols-outlined text-base">play_arrow</span>
-<span>Comenzar</span>
-</button>
-</div>
-</article>
-<!-- Tarjeta 3: Ritual de Desprendimiento de Rol -->
-<article class="exercise-card rounded-xl bg-surface-container-lowest p-space-lg shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between gap-space-md" data-categories="todos defusion">
-<div class="flex flex-col gap-space-sm">
-<div class="flex items-center justify-between gap-space-xs">
-<span class="px-space-sm py-space-xs rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">
-              Defusión &amp; Cierre
-            </span>
-<div class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant">
-<span class="material-symbols-outlined text-base text-tertiary">timer</span>
-<span>8 min</span>
-</div>
-</div>
-<div class="relative w-full h-36 rounded-lg overflow-hidden my-space-xs">
-<img class="w-full h-full object-cover" data-alt="A wooden therapeutic desk with a closed notebook, brass pen, soothing potted succulent and a warm cup of herbal tea during golden hour dusk light, peaceful closure atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6LpRO2wiu3qrA1eV9n4Doaw3AFvXjiIxbwh0UfpAGIHrFB9t5dQOMb-SAF48QZ7R1MmTzdCPSZjVhd8-iPQ9XQZJPsrhGeVwOtUOkPzbb2Mc4rZV5vdKKBaqq98m1kBfxIzCfsRJDDSi3SH4GPW6u_GCoVOjqymOSezPk40VpBI8z9zV2LwwwkgC1w3nq8zcvwkhMpPhHao30SDJq4aWbnRArFIJrvzqh9bj1Tp4iM16Y3O8LQm3j-g"/>
-<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/60 via-transparent to-transparent flex items-end p-space-sm">
-<span class="font-label-sm text-label-sm text-on-surface bg-surface-container-high/90 px-space-sm py-0.5 rounded-full font-semibold">Fin de Turno</span>
-</div>
-</div>
-<h3 class="font-headline-sm text-headline-sm text-on-surface">El ritual de desprendimiento del rol</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant">
-            Visualización simbólica para depositar historias, dolores y demandas clínicas en el consultorio antes de volver a tu vida personal.
-          </p>
-</div>
-<div class="flex items-center justify-between pt-space-xs">
-<div class="flex flex-col">
-<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Esfuerzo</span>
-<span class="font-label-md text-label-md text-tertiary font-semibold">Introspectivo · Sentado</span>
-</div>
-<button class="exercise-launch-btn px-space-md py-space-sm rounded-xl bg-primary text-on-primary font-label-lg text-label-lg hover:bg-primary-container transition-all flex items-center gap-1" type="button">
-<span class="material-symbols-outlined text-base">play_arrow</span>
-<span>Comenzar</span>
-</button>
-</div>
-</article>
-<!-- Tarjeta 4: Respiración Coherente -->
-<article class="exercise-card rounded-xl bg-surface-container-lowest p-space-lg shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between gap-space-md" data-categories="todos respiracion">
-<div class="flex flex-col gap-space-sm">
-<div class="flex items-center justify-between gap-space-xs">
-<span class="px-space-sm py-space-xs rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">
-              Variabilidad Cardíaca
-            </span>
-<div class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant">
-<span class="material-symbols-outlined text-base text-primary">timer</span>
-<span>10 min</span>
-</div>
-</div>
-<div class="relative w-full h-36 rounded-lg overflow-hidden my-space-xs">
-<!-- Gráfico visual SVG de Onda de Coherencia Cardíaca -->
-<div class="w-full h-full bg-surface-container-low flex flex-col justify-between p-space-sm">
-<div class="flex justify-between items-center text-on-surface-variant font-label-sm text-label-sm">
-<span>Ritmo de 5.5 rpm</span>
-<span class="text-primary font-semibold">Coherencia Óptima</span>
-</div>
-<svg class="w-full h-16 text-primary stroke-current fill-none" viewbox="0 0 300 60">
-<path d="M 0 30 Q 25 5, 50 30 T 100 30 T 150 30 T 200 30 T 250 30 T 300 30" stroke-linecap="round" stroke-width="3"></path>
-<path d="M 0 30 Q 25 5, 50 30 T 100 30 T 150 30 T 200 30 T 250 30 T 300 30" opacity="0.3" stroke-dasharray="4 4" stroke-width="1"></path>
-</svg>
-<span class="font-label-sm text-label-sm text-on-surface-variant text-right">0.1 Hz resonancia</span>
-</div>
-</div>
-<h3 class="font-headline-sm text-headline-sm text-on-surface">Respiración de Resonancia Coherente</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant">
-            Pauta respiratoria de 5.5 respiraciones por minuto para inducir máxima sincronía entre el sistema cardiovascular y cerebral.
-          </p>
-</div>
-<div class="flex items-center justify-between pt-space-xs">
-<div class="flex flex-col">
-<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Esfuerzo</span>
-<span class="font-label-md text-label-md text-primary font-semibold">Calmo · Cualquier postura</span>
-</div>
-<button class="exercise-launch-btn px-space-md py-space-sm rounded-xl bg-primary text-on-primary font-label-lg text-label-lg hover:bg-primary-container transition-all flex items-center gap-1" type="button">
-<span class="material-symbols-outlined text-base">play_arrow</span>
-<span>Comenzar</span>
-</button>
-</div>
-</article>
-</div>
-</div>
-<!-- Recomendación de Autocuidado al Pie -->
-<aside class="w-full p-space-lg rounded-xl bg-secondary-fixed/50 flex flex-col sm:flex-row items-center justify-between gap-space-md shadow-sm">
-<div class="flex items-center gap-space-md">
-<div class="w-12 h-12 rounded-full bg-secondary text-on-secondary flex items-center justify-center flex-shrink-0">
-<span class="material-symbols-outlined text-2xl">wb_sunny</span>
-</div>
-<div class="flex flex-col">
-<span class="font-headline-sm text-headline-sm text-on-secondary-fixed">Micro-hábito del terapeuta</span>
-<p class="font-body-md text-body-md text-on-secondary-container">
-          Recuerda hidratarte y tomar 5 minutos de luz solar entre pacientes. Tu propio cuerpo es el primer instrumento de sostén clínico.
-        </p>
-</div>
-</div>
-<div class="flex items-center gap-space-sm flex-shrink-0">
-<button class="px-space-md py-space-sm rounded-xl bg-surface-container-lowest text-secondary font-label-lg text-label-lg hover:bg-surface-container transition-all flex items-center gap-1 shadow-sm" id="hydrateLogBtn" type="button">
-<span class="material-symbols-outlined text-base text-secondary">water_drop</span>
-<span>Tomé agua</span>
-</button>
-</div>
-</aside>
-</div>
-<!-- Microinteracciones Interactivas -->
-</div>
         </section>
 
         <!-- ==================== VISTA 3: ENTRENAMIENTO EN LÍMITES PROFESIONALES ==================== -->
@@ -2088,6 +2133,75 @@
       <span class="text-[10px] sm:text-xs font-bold mt-0.5">Crisis</span>
     </button>
   </nav>
+
+  <!-- ==================== MODAL DE BIENVENIDA Y PERSONALIZACIÓN DE PERFIL ==================== -->
+  <div id="profile-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-inverse-surface/60 backdrop-blur-sm hidden transition-opacity duration-300">
+    <div class="bg-surface-container-lowest text-on-surface rounded-2xl shadow-2xl border border-outline-variant/30 max-w-md w-full p-6 sm:p-8 flex flex-col gap-space-md animate-scaleUp relative">
+      
+      <!-- Botón cerrar (X) -->
+      <button type="button" id="close-profile-modal-btn" class="absolute top-4 right-4 p-1.5 rounded-full text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer" title="Cerrar ventana">
+        <span class="material-symbols-outlined text-xl">close</span>
+      </button>
+
+      <!-- Encabezado con Icono Stitch -->
+      <div class="flex items-center gap-space-sm">
+        <div class="w-12 h-12 rounded-2xl bg-primary-fixed flex items-center justify-center text-primary shrink-0 shadow-sm">
+          <span class="material-symbols-outlined text-2xl">spa</span>
+        </div>
+        <div class="flex flex-col">
+          <h2 id="profile-modal-title" class="font-headline-md text-headline-md text-primary font-bold tracking-tight">¡Bienvenido a PSICOPAUSA!</h2>
+          <p id="profile-modal-subtitle" class="font-label-sm text-label-sm text-on-surface-variant">Tu espacio personal de autocuidado</p>
+        </div>
+      </div>
+
+      <div class="h-px w-full bg-outline-variant/30 my-0.5"></div>
+
+      <!-- Formulario de Identidad Profesional -->
+      <form id="profile-form" class="flex flex-col gap-space-md">
+        <div class="flex flex-col gap-1.5">
+          <label for="profile-name-input" class="font-label-md text-label-md font-semibold text-on-surface flex items-center justify-between">
+            <span>¿Cómo te gustaría que te llamemos?</span>
+            <span class="text-xs font-normal text-on-surface-variant">Opcional</span>
+          </label>
+          <div class="relative flex items-center">
+            <span class="material-symbols-outlined absolute left-3 text-on-surface-variant text-lg">person</span>
+            <input type="text" id="profile-name-input" maxlength="40" placeholder="Escribe tu nombre o apodo (ej. Laura)" class="w-full pl-10 pr-3 py-2.5 bg-surface-container-low rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:outline-none focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest border border-transparent focus:border-primary transition-all"/>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <label for="profile-role-input" class="font-label-md text-label-md font-semibold text-on-surface flex items-center justify-between">
+            <span>Tu rol, carrera o profesión</span>
+            <span class="text-xs font-normal text-on-surface-variant">Opcional</span>
+          </label>
+          <div class="relative flex items-center">
+            <span class="material-symbols-outlined absolute left-3 text-on-surface-variant text-lg">badge</span>
+            <input type="text" id="profile-role-input" maxlength="50" placeholder="ej. Estudiante de Psicología, Interno/a..." class="w-full pl-10 pr-3 py-2.5 bg-surface-container-low rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:outline-none focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest border border-transparent focus:border-primary transition-all"/>
+          </div>
+        </div>
+
+        <!-- Nota de Privacidad según directrices del PRD -->
+        <div class="p-space-sm bg-surface-container-low rounded-xl flex items-start gap-space-xs text-on-surface-variant border border-outline-variant/20">
+          <span class="material-symbols-outlined text-primary text-base shrink-0 mt-0.5">lock</span>
+          <p class="font-body-sm text-body-sm leading-relaxed text-xs">
+            <strong>Privacidad local:</strong> Esta información se guarda exclusivamente en este navegador web y nunca se envía a servidores externos. Recuerda que no constituye una cuenta protegida si compartes este equipo con otras personas.
+          </p>
+        </div>
+
+        <!-- Botones de Acción -->
+        <div class="flex flex-col sm:flex-row items-center gap-space-sm pt-1">
+          <button type="submit" id="btn-save-profile" class="w-full py-3 px-space-lg rounded-xl bg-primary text-on-primary font-label-lg text-label-lg hover:bg-primary-container hover:text-on-primary-container shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer font-bold">
+            <span class="material-symbols-outlined text-lg">check_circle</span>
+            <span id="btn-save-profile-text">Comenzar mi pausa</span>
+          </button>
+          <button type="button" id="btn-skip-profile" class="w-full sm:w-auto py-2.5 px-space-md rounded-xl text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md text-center cursor-pointer">
+            Continuar como Estudiante
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
 
   <!-- Script Principal de la Aplicación -->
   <script src="app.js"></script>
