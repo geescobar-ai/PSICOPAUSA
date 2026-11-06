@@ -1338,8 +1338,281 @@ window.toggleSupervisionTag = function() {
   }
 };
 
+const JOURNAL_STORAGE_KEY = 'psicopausa_journal_entries_v1';
+
+function getSavedJournalEntries() {
+  try {
+    const raw = localStorage.getItem(JOURNAL_STORAGE_KEY);
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (error) {
+    console.error('No se pudieron leer las entradas del diario:', error);
+    return [];
+  }
+}
+
+function normalizeHistoryText(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim();
+}
+
+function showJournalToast(title, message) {
+  const toast = document.getElementById('toast-notification');
+  if (!toast) {
+    alert(`${title}\n${message}`);
+    return;
+  }
+
+  const titleEl = toast.querySelector('[data-toast-title]');
+  const messageEl = toast.querySelector('[data-toast-message]');
+  if (titleEl) titleEl.textContent = title;
+  if (messageEl) messageEl.textContent = message;
+
+  toast.classList.remove('translate-y-24', 'opacity-0');
+  toast.classList.add('translate-y-0', 'opacity-100');
+
+  if (window.journalToastTimer) clearTimeout(window.journalToastTimer);
+  window.journalToastTimer = setTimeout(() => {
+    toast.classList.add('translate-y-24', 'opacity-0');
+    toast.classList.remove('translate-y-0', 'opacity-100');
+  }, 3200);
+}
+
+function addJournalDetailBlock(container, label, value) {
+  if (!value || !String(value).trim()) return;
+  const block = document.createElement('div');
+  block.className = 'flex flex-col gap-1';
+
+  const heading = document.createElement('strong');
+  heading.className = 'font-label-md text-label-md text-primary';
+  heading.textContent = label;
+
+  const paragraph = document.createElement('p');
+  paragraph.className = 'font-body-sm text-body-sm text-on-surface-variant whitespace-pre-wrap break-words';
+  paragraph.textContent = value;
+
+  block.append(heading, paragraph);
+  container.appendChild(block);
+}
+
+function createSavedJournalCard(entry) {
+  const article = document.createElement('article');
+  article.className = 'history-item journal-saved-item bg-surface-container-low hover:bg-surface-container-high transition-colors p-space-md rounded-xl flex flex-col gap-space-xs cursor-pointer';
+  article.dataset.journalEntryId = entry.id;
+  article.setAttribute('role', 'button');
+  article.setAttribute('tabindex', '0');
+  article.setAttribute('aria-expanded', 'false');
+
+  const header = document.createElement('div');
+  header.className = 'flex items-center justify-between gap-2';
+
+  const date = document.createElement('span');
+  date.className = 'font-label-sm text-label-sm text-on-surface-variant';
+  date.textContent = `${entry.dateLabel || 'Registro guardado'} · Turno ${entry.shiftLabel || 'Mañana'}`;
+
+  const privacy = document.createElement('span');
+  privacy.className = 'px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm font-semibold flex items-center gap-1 shrink-0';
+  const lock = document.createElement('span');
+  lock.className = 'material-symbols-outlined text-xs';
+  lock.textContent = 'lock';
+  const privacyText = document.createElement('span');
+  privacyText.textContent = 'Privada en este navegador';
+  privacy.append(lock, privacyText);
+  header.append(date, privacy);
+
+  if (entry.supervision) {
+    const supervisionBadge = document.createElement('span');
+    supervisionBadge.className = 'px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm font-semibold flex items-center gap-1 shrink-0';
+    const bookmark = document.createElement('span');
+    bookmark.className = 'material-symbols-outlined text-xs';
+    bookmark.textContent = 'bookmark';
+    const supervisionText = document.createElement('span');
+    supervisionText.textContent = 'Para supervisión';
+    supervisionBadge.append(bookmark, supervisionText);
+    header.appendChild(supervisionBadge);
+  }
+
+  const title = document.createElement('h4');
+  title.className = 'font-label-lg text-label-lg text-on-surface line-clamp-1 font-semibold';
+  title.textContent = entry.title || 'Reflexión de práctica';
+
+  const summary = document.createElement('p');
+  summary.className = 'font-body-sm text-body-sm text-on-surface-variant line-clamp-2';
+  summary.textContent = entry.summary || 'Entrada privada guardada en este navegador.';
+
+  const details = document.createElement('div');
+  details.className = 'journal-entry-details hidden mt-2 pt-3 border-t border-outline-variant/30 flex flex-col gap-3';
+  addJournalDetailBlock(details, 'Vulnerabilidad y resonancia personal', entry.prompts?.[0]);
+  addJournalDetailBlock(details, 'Auto-reconocimiento y logros', entry.prompts?.[1]);
+  addJournalDetailBlock(details, 'Liberación simbólica', entry.prompts?.[2]);
+  addJournalDetailBlock(details, 'Reflexión libre integrativa', entry.reflection);
+
+  if (entry.tags && entry.tags.length) {
+    const tagsLabel = document.createElement('strong');
+    tagsLabel.className = 'font-label-md text-label-md text-primary';
+    tagsLabel.textContent = 'Etiquetas';
+    const tagsWrap = document.createElement('div');
+    tagsWrap.className = 'flex flex-wrap gap-1';
+    entry.tags.forEach((tag) => {
+      const chip = document.createElement('span');
+      chip.className = 'px-2 py-0.5 rounded-md bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm';
+      chip.textContent = tag;
+      tagsWrap.appendChild(chip);
+    });
+    details.append(tagsLabel, tagsWrap);
+  }
+
+  const hint = document.createElement('span');
+  hint.className = 'journal-card-toggle-label font-label-sm text-label-sm text-primary mt-1';
+  hint.textContent = 'Toca para ver detalles';
+
+  article.append(header, title, summary, details, hint);
+  return article;
+}
+
+function renderSavedJournalEntries() {
+  const list = document.getElementById('history-list');
+  if (!list) return;
+
+  list.querySelectorAll('.journal-saved-item').forEach((card) => card.remove());
+  const entries = getSavedJournalEntries().sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
+  entries.forEach((entry) => {
+    list.insertBefore(createSavedJournalCard(entry), list.firstChild);
+  });
+  updateHistoryCount();
+}
+
+function updateHistoryCount() {
+  const list = document.getElementById('history-list');
+  const countLabel = document.getElementById('history-count-label');
+  if (!list || !countLabel) return;
+  const count = list.querySelectorAll('.history-item').length;
+  countLabel.textContent = `Ver todas (${count})`;
+}
+
+function toggleHistoryCard(card) {
+  if (!card) return;
+  const expanded = card.getAttribute('aria-expanded') !== 'true';
+  card.setAttribute('aria-expanded', String(expanded));
+
+  const title = card.querySelector('h4');
+  const preview = card.querySelector('p');
+  const details = card.querySelector('.journal-entry-details');
+  const hint = card.querySelector('.journal-card-toggle-label');
+
+  if (title) title.classList.toggle('line-clamp-1', !expanded);
+  if (preview) preview.classList.toggle('line-clamp-2', !expanded);
+  if (details) details.classList.toggle('hidden', !expanded);
+  if (hint) hint.textContent = expanded ? 'Toca para ocultar detalles' : 'Toca para ver detalles';
+  card.classList.toggle('ring-1', expanded);
+  card.classList.toggle('ring-primary/30', expanded);
+}
+
+window.filterHistory = function(query) {
+  const list = document.getElementById('history-list');
+  if (!list) return 0;
+
+  const normalizedQuery = normalizeHistoryText(query);
+  const cards = Array.from(list.querySelectorAll('.history-item'));
+  let visibleCount = 0;
+
+  cards.forEach((card) => {
+    const searchableText = normalizeHistoryText(card.textContent);
+    const matches = !normalizedQuery || searchableText.includes(normalizedQuery);
+    card.classList.toggle('hidden', !matches);
+    if (matches) visibleCount++;
+  });
+
+  let emptyState = document.getElementById('history-empty-state');
+  if (visibleCount === 0) {
+    if (!emptyState) {
+      emptyState = document.createElement('div');
+      emptyState.id = 'history-empty-state';
+      emptyState.className = 'rounded-xl bg-surface-container-low p-space-md text-center font-body-sm text-body-sm text-on-surface-variant';
+      list.appendChild(emptyState);
+    }
+    emptyState.textContent = normalizedQuery
+      ? 'No encontramos registros con esa emoción o tema. Prueba con otra palabra o etiqueta.'
+      : 'Todavía no hay registros guardados.';
+    emptyState.classList.remove('hidden');
+  } else if (emptyState) {
+    emptyState.classList.add('hidden');
+  }
+
+  updateHistoryCount();
+  return visibleCount;
+};
+
 window.saveJournalEntry = function() {
-  alert('Entrada guardada en la memoria local de tu navegador. Gracias por regalarte este cierre reflexivo.');
+  const promptValues = [1, 2, 3].map((step) => {
+    const textarea = document.querySelector(`#prompt-input-${step} textarea`);
+    return textarea ? textarea.value.trim() : '';
+  });
+  const reflectionInput = document.getElementById('free-journal-text');
+  const reflection = reflectionInput ? reflectionInput.value.trim() : '';
+  const tags = Array.from(document.querySelectorAll('#tags-container .tag-pill'))
+    .filter((button) => button.classList.contains('bg-primary-container'))
+    .map((button) => button.textContent.trim());
+
+  if (![...promptValues, reflection].some(Boolean)) {
+    showJournalToast('Tu entrada está vacía', 'Escribe una reflexión antes de guardarla.');
+    return;
+  }
+
+  const activeShift = document.querySelector('#view-diario .shift-btn.bg-primary');
+  const shift = activeShift ? activeShift.dataset.shift : 'mañana';
+  const shiftLabels = { manana: 'Mañana', mañana: 'Mañana', tarde: 'Tarde', completo: 'Completo' };
+  const firstText = reflection || promptValues.find(Boolean) || '';
+  const firstSentence = firstText.split(/[.!?\n]/).map((part) => part.trim()).find(Boolean) || '';
+  const now = new Date();
+  const dateLabel = now.toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' });
+  const entry = {
+    id: (window.crypto && typeof window.crypto.randomUUID === 'function') ? window.crypto.randomUUID() : `entry-${Date.now()}`,
+    createdAt: now.toISOString(),
+    dateLabel,
+    shiftLabel: shiftLabels[shift] || 'Mañana',
+    title: firstSentence.slice(0, 72) || 'Reflexión de práctica',
+    summary: firstText.slice(0, 190),
+    prompts: promptValues,
+    reflection,
+    tags,
+    supervision: Boolean(document.getElementById('supervision-icon')?.textContent.trim() === 'bookmark')
+  };
+
+  try {
+    const entries = getSavedJournalEntries();
+    entries.unshift(entry);
+    localStorage.setItem(JOURNAL_STORAGE_KEY, JSON.stringify(entries));
+  } catch (error) {
+    console.error('No se pudo guardar la entrada del diario:', error);
+    showJournalToast('No se pudo guardar', 'Revisa el espacio disponible del navegador e inténtalo de nuevo.');
+    return;
+  }
+
+  renderSavedJournalEntries();
+  const searchInput = document.getElementById('history-search-input');
+  if (searchInput) searchInput.value = '';
+  window.filterHistory('');
+
+  [1, 2, 3].forEach((step) => {
+    const textarea = document.querySelector(`#prompt-input-${step} textarea`);
+    if (textarea) textarea.value = '';
+  });
+  if (reflectionInput) reflectionInput.value = '';
+  document.querySelectorAll('#tags-container .tag-pill').forEach((button) => {
+    button.classList.remove('bg-primary-container', 'text-on-primary-container', 'font-semibold');
+  });
+  const wordCount = document.getElementById('word-count-badge');
+  if (wordCount) wordCount.textContent = '0 palabras registradas';
+  const supervisionIcon = document.getElementById('supervision-icon');
+  const supervisionText = document.getElementById('supervision-text');
+  if (supervisionIcon) supervisionIcon.textContent = 'bookmark_border';
+  if (supervisionText) supervisionText.textContent = 'Marcar para llevar a supervisión';
+
+  showJournalToast('Entrada guardada en este dispositivo', 'Tu registro quedó en este navegador. No se sincroniza con otros dispositivos.');
 };
 
 window.openClosureRitualModal = function() {
@@ -1358,6 +1631,57 @@ function initDiario() {
       btn.classList.remove('text-on-surface-variant');
     });
   });
+
+  const historyList = document.getElementById('history-list');
+  if (historyList) {
+    historyList.querySelectorAll('.history-item').forEach((card) => {
+      card.setAttribute('role', 'button');
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('aria-expanded', 'false');
+      card.setAttribute('aria-label', 'Toca para ver u ocultar los detalles de esta entrada privada');
+      const lockIcon = card.querySelector('.material-symbols-outlined');
+      if (lockIcon && lockIcon.textContent.trim() === 'lock') {
+        lockIcon.setAttribute('title', 'Entrada privada en este navegador');
+        lockIcon.setAttribute('aria-label', 'Entrada privada en este navegador');
+      }
+      if (!card.querySelector('.journal-card-toggle-label')) {
+        const hint = document.createElement('span');
+        hint.className = 'journal-card-toggle-label font-label-sm text-label-sm text-primary mt-1';
+        hint.textContent = 'Toca para ver detalles';
+        card.appendChild(hint);
+      }
+    });
+
+    historyList.addEventListener('click', (event) => {
+      const card = event.target.closest('.history-item');
+      if (!card || event.target.closest('a, button, input')) return;
+      toggleHistoryCard(card);
+    });
+
+    historyList.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      const card = event.target.closest('.history-item');
+      if (!card) return;
+      event.preventDefault();
+      toggleHistoryCard(card);
+    });
+  }
+
+  const searchInput = document.getElementById('history-search-input');
+  if (searchInput) {
+    searchInput.addEventListener('input', () => window.filterHistory(searchInput.value));
+  }
+
+  const showAllButton = document.getElementById('history-show-all');
+  if (showAllButton) {
+    showAllButton.addEventListener('click', () => {
+      if (searchInput) searchInput.value = '';
+      window.filterHistory('');
+    });
+  }
+
+  renderSavedJournalEntries();
+  window.filterHistory(searchInput ? searchInput.value : '');
 }
 
 /* ==========================================================================

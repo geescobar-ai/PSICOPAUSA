@@ -392,7 +392,7 @@
 <div class="flex flex-col sm:flex-row items-center justify-between gap-space-md pt-space-xs">
 <div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
 <span class="material-symbols-outlined text-base text-primary">lock_clock</span>
-<span>Tus datos se encriptan localmente</span>
+<span>Tus datos se guardan en este navegador</span>
 </div>
 <div class="flex items-center gap-space-sm w-full sm:w-auto">
 <button class="w-full sm:w-auto px-space-lg py-space-sm rounded-xl bg-primary text-on-primary font-label-lg text-label-lg hover:bg-primary-container transition-all flex items-center justify-center gap-2 shadow-sm" id="save-log-btn" type="button">
@@ -1245,7 +1245,7 @@
 <!-- Action Footer -->
 <div class="mt-space-lg pt-space-md flex flex-wrap items-center justify-between gap-space-md">
 <span class="font-label-sm text-label-sm text-outline">
-          Tus notas quedan almacenadas en tu Diario Privado encriptado.
+          Tus notas quedan almacenadas localmente en este navegador.
         </span>
 <button class="px-space-lg py-space-sm rounded-xl bg-primary text-on-primary hover:bg-primary-container transition-all duration-200 font-label-lg text-label-lg flex items-center gap-space-xs shadow-sm" type="button">
 <span class="material-symbols-outlined text-lg">edit_note</span>
@@ -1331,7 +1331,7 @@
 </div>
 <h1 class="font-display-lg text-display-lg text-on-surface tracking-tight">Diario Personal de Práctica y Descompresión</h1>
 <p class="font-body-lg text-body-lg text-on-surface-variant mt-space-xs">
-        Un espacio seguro y cifrado para procesar lo que sentiste hoy como profesional y como ser humano.
+        Un espacio personal para procesar lo que sentiste hoy como profesional y como ser humano.
       </p>
 </div>
 <div class="flex items-center gap-space-sm self-start md:self-auto bg-surface-container-high px-space-md py-space-sm rounded-full">
@@ -1339,7 +1339,7 @@
 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
 <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
 </span>
-<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Cifrado local punto a punto activo</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Guardado local en este navegador</span>
 </div>
 </div>
 <!-- Banner Ético y de Confidencialidad -->
@@ -1363,6 +1363,10 @@
 <span class="font-label-md text-label-md text-primary font-semibold">Art. 15 · Resguardo de Identidad</span>
 </div>
 </div>
+</div>
+<div class="mb-space-lg rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-space-md flex items-start gap-space-sm">
+  <span class="material-symbols-outlined text-primary text-xl shrink-0">info</span>
+  <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Las entradas se guardan en el almacenamiento de este navegador. No se sincronizan entre celular y computador y no están cifradas por esta versión de la aplicación. Evita incluir nombres, datos personales o información que permita identificar a consultantes.</p>
 </div>
 <!-- Layout Principal en Grid 12 Columnas -->
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg mb-space-xl">
@@ -1586,19 +1590,20 @@
 <span class="material-symbols-outlined text-primary text-xl">history_edu</span>
             Tus Huellas de Práctica
           </h3>
-<span class="font-label-sm text-label-sm text-primary font-medium cursor-pointer hover:underline">Ver todas (34)</span>
+<button class="font-label-sm text-label-sm text-primary font-medium cursor-pointer hover:underline bg-transparent border-0" id="history-show-all" type="button"><span id="history-count-label">Ver todas (3)</span></button>
 </div>
 <!-- Buscador por Emoción o Tema -->
 <div class="relative">
 <span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant text-lg">search</span>
-<input class="w-full pl-9 pr-3 py-2 bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface placeholder:text-outline-variant focus:outline-none focus:ring-1 focus:ring-primary" id="history-search-input" oninput="filterHistory(this.value)" placeholder="Buscar por emoción (#frustracion) o tema..." type="text"/>
+<input aria-label="Buscar registros del diario por emoción o tema" autocomplete="off" class="w-full pl-9 pr-3 py-2 bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface placeholder:text-outline-variant focus:outline-none focus:ring-1 focus:ring-primary" id="history-search-input" placeholder="Buscar por emoción (#frustracion) o tema..." type="search"/>
 </div>
 <!-- Lista de Entradas Anteriores -->
+<p class="font-label-sm text-label-sm text-on-surface-variant">Incluye tres registros de ejemplo y las entradas que guardes en este navegador. Toca una tarjeta para consultar u ocultar sus detalles. El candado identifica un registro local; no es una contraseña ni un bloqueo de acceso.</p>
 <div class="flex flex-col gap-space-sm" id="history-list">
 <!-- Entrada 1 -->
 <article class="history-item bg-surface-container-low hover:bg-surface-container-high transition-colors p-space-md rounded-xl flex flex-col gap-space-xs cursor-pointer">
 <div class="flex items-center justify-between">
-<span class="font-label-sm text-label-sm text-on-surface-variant">Ayer · 23 Octubre (Turno Tarde)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Ejemplo · 23 Octubre (Turno Tarde)</span>
 <span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm font-semibold flex items-center gap-1">
 <span class="material-symbols-outlined text-xs">bookmark</span> Para supervisión
               </span>
@@ -1615,8 +1620,8 @@
 <!-- Entrada 2 -->
 <article class="history-item bg-surface-container-low hover:bg-surface-container-high transition-colors p-space-md rounded-xl flex flex-col gap-space-xs cursor-pointer">
 <div class="flex items-center justify-between">
-<span class="font-label-sm text-label-sm text-on-surface-variant">Lunes · 21 Octubre (Turno Mañana)</span>
-<span class="text-on-surface-variant/50 material-symbols-outlined text-base">lock</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Ejemplo · 21 Octubre (Turno Mañana)</span>
+<span class="text-on-surface-variant/50 material-symbols-outlined text-base" title="Entrada privada en este navegador" aria-label="Entrada privada en este navegador">lock</span>
 </div>
 <h4 class="font-label-lg text-label-lg text-on-surface line-clamp-1 font-semibold">Validar el dolor sin apresurarme a intervenir</h4>
 <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
@@ -1630,8 +1635,8 @@
 <!-- Entrada 3 -->
 <article class="history-item bg-surface-container-low hover:bg-surface-container-high transition-colors p-space-md rounded-xl flex flex-col gap-space-xs cursor-pointer">
 <div class="flex items-center justify-between">
-<span class="font-label-sm text-label-sm text-on-surface-variant">Viernes · 18 Octubre (Turno Completo)</span>
-<span class="text-on-surface-variant/50 material-symbols-outlined text-base">lock</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Ejemplo · 18 Octubre (Turno Completo)</span>
+<span class="text-on-surface-variant/50 material-symbols-outlined text-base" title="Entrada privada en este navegador" aria-label="Entrada privada en este navegador">lock</span>
 </div>
 <h4 class="font-label-lg text-label-lg text-on-surface line-clamp-1 font-semibold">Sobrecarga administrativa y sensación de prisa</h4>
 <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
@@ -1710,8 +1715,8 @@
 <div class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 flex items-center gap-space-sm bg-primary text-on-primary px-space-lg py-space-sm rounded-xl shadow-lg pointer-events-none" id="toast-notification">
 <span class="material-symbols-outlined text-xl">task_alt</span>
 <div class="flex flex-col">
-<span class="font-label-md text-label-md font-semibold">Entrada resguardada confidencialmente</span>
-<span class="font-label-sm text-label-sm text-on-primary-container">Tu diario fue guardado con éxito.</span>
+<span class="font-label-md text-label-md font-semibold" data-toast-title>Entrada guardada en este dispositivo</span>
+<span class="font-label-sm text-label-sm text-on-primary-container" data-toast-message>Tu registro quedó en este navegador.</span>
 </div>
 </div>
 </div>
