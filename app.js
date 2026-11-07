@@ -1241,50 +1241,238 @@ function initDashboard() {
 /* ==========================================================================
    6. ENTRENAMIENTO EN LÍMITES PROFESIONALES
    ========================================================================== */
-window.selectOption = function(option) {
-  const cards = document.querySelectorAll('.option-card');
-  cards.forEach((c) => {
-    c.classList.remove('bg-primary-fixed', 'text-on-primary-fixed', 'ring-2', 'ring-primary');
-    c.classList.add('bg-surface-container-low');
-  });
-
-  const selectedCard = event ? event.currentTarget : null;
-  if (selectedCard) {
-    selectedCard.classList.remove('bg-surface-container-low');
-    selectedCard.classList.add('bg-primary-fixed', 'text-on-primary-fixed', 'ring-2', 'ring-primary');
-  }
-
-  const titleEl = document.getElementById('feedback-title');
-  const bodyEl = document.getElementById('feedback-body');
-  const iconEl = document.getElementById('feedback-icon');
-
-  if (!titleEl || !bodyEl || !iconEl) return;
-
-  if (option === 'A') {
-    titleEl.textContent = 'Opción A: Riesgo de Sobrecarga y Desdibujamiento';
-    bodyEl.textContent = 'Al atender por chat en un domingo por la noche, refuerzas la fantasía de rescate inmediato y generas una expectativa insostenible a largo plazo. Además, vulneras tu propio derecho al descanso restaurativo, elevando el riesgo de fatiga por compasión.';
-    iconEl.textContent = 'warning';
-    iconEl.className = 'material-symbols-outlined text-secondary text-2xl';
-  } else if (option === 'B') {
-    titleEl.textContent = 'Opción B: Respuesta Ética, Cuidadosa y Sostenible (Recomendada)';
-    bodyEl.textContent = 'Excelente abordaje. Validas la seriedad de la situación sin asumir un rol de urgencias 24/7 que la psicoterapia ambulatoria no contempla. Provees alternativas concretas de salvaguarda (línea 106 de crisis) y mantienes el espacio terapéutico protegido para profundizar en sesión hábil.';
-    iconEl.textContent = 'verified';
-    iconEl.className = 'material-symbols-outlined text-primary text-2xl';
-  } else if (option === 'C') {
-    titleEl.textContent = 'Opción C: Silencio Sin Marco Previsto';
-    bodyEl.textContent = 'Aunque protege tu tiempo de descanso, dejar en visto sin un protocolo previamente explicitado puede generar vivencia de abandono o escalamiento del riesgo en el usuario. Lo ideal es siempre contar con un encuadre digital prefijado o una respuesta institucional automatizada.';
-    iconEl.textContent = 'help';
-    iconEl.className = 'material-symbols-outlined text-outline text-2xl';
+// Casos formativos ficticios. Sin datos clínicos ni información de pacientes.
+const LIMIT_CASES = {
+  horarios: {
+    number: '01', title: 'Mensaje de angustia a tu WhatsApp personal', time: 'Domingo 22:47',
+    description: 'Un consultante que atendiste en sesión escribe a tu número personal fuera del horario establecido. Expresa angustia y pide una respuesta inmediata. Debes aplicar el protocolo de riesgo de tu institución sin reemplazar una atención de urgencias.',
+    sender: 'Consultante de ejemplo', messageOne: 'Me siento muy angustiado y no sé cómo actuar. ¿Podemos hablar ahora?', messageTwo: '¿Me puede responder un momento? No quiero esperar a la próxima sesión.',
+    options: {
+      A: ['Responder de inmediato y abrir una sesión improvisada por chat', 'Prometer disponibilidad continua desde el teléfono personal.'],
+      B: ['Aplicar el protocolo institucional y orientar a canales de crisis', 'Valorar la urgencia según las pautas de práctica, recordar los límites del canal y facilitar acceso a atención urgente cuando corresponda.'],
+      C: ['Ignorar sin un plan previo de atención', 'No responder ni garantizar que la persona conoce la ruta de atención en crisis.']
+    },
+    feedback: {
+      A: ['Opción A: Riesgo de desbordamiento del encuadre', 'Improvisar atención clínica permanente fuera del canal autorizado puede generar dependencia y diluir los límites profesionales. Ante riesgo inmediato debe seguirse el protocolo de emergencia, no una sesión informal por chat.'],
+      B: ['Opción B: Protocolo y cuidado compartido (recomendada)', 'Utilizar el procedimiento institucional y orientar a servicios de urgencias cuando sea necesario protege al consultante y al practicante. No sustituye la evaluación profesional del riesgo.'],
+      C: ['Opción C: Falta de ruta de seguridad', 'El silencio sin un encuadre y un canal de crisis informados de antemano puede dejar a una persona sin opciones claras de ayuda.']
+    },
+    script: '«Recibo tu mensaje. Este número personal no es un servicio de urgencias. Si hay riesgo inmediato, llama al 123 o acude a urgencias. Para orientación en salud mental en Colombia, puedes comunicarte al 106. Retomaremos el tema en el próximo espacio acordado». Adapta siempre el texto al protocolo de tu institución.'
+  },
+  confidencialidad: {
+    number: '02', title: 'Solicitud institucional de información confidencial', time: 'Miércoles 10:30',
+    description: 'Un directivo solicita por mensajería una copia de las notas de una consulta. No existe autorización para divulgar la información y debes decidir cómo responder.',
+    sender: 'Directivo (caso simulado)', messageOne: 'Por favor envíame hoy las notas completas del estudiante que estás atendiendo.', messageTwo: 'Las necesitamos para revisar su caso con el equipo.',
+    options: {
+      A: ['Compartir de inmediato el archivo completo', 'Enviar notas o datos identificables por mensajería informal.'],
+      B: ['Verificar autorización y canal institucional seguro', 'Consultar las reglas de confidencialidad, el consentimiento, el supervisor y las excepciones legales aplicables antes de compartir información mínima necesaria.'],
+      C: ['Responder de forma confrontativa sin orientar', 'Rechazar sin explicar el procedimiento de solicitud.']
+    },
+    feedback: {
+      A: ['Opción A: Riesgo para la confidencialidad', 'Divulgar datos sensibles sin fundamento ni autorización puede vulnerar derechos y obligaciones éticas.'],
+      B: ['Opción B: Confidencialidad y protocolo (recomendada)', 'Verificar legitimidad, autorizaciones, excepciones y canales seguros protege la privacidad. Eleva dudas a supervisión antes de divulgar datos.'],
+      C: ['Opción C: Falta de orientación institucional', 'Es adecuado poner límites a solicitudes improcedentes, pero también explicar el canal formal sin revelar información clínica.']
+    },
+    script: '«Gracias por la solicitud. Para proteger la confidencialidad, cualquier acceso a información clínica requiere verificar el fundamento aplicable, los consentimientos y el procedimiento institucional. Podemos revisar el canal formal con supervisión». No compartas datos identificables por este simulador.'
+  },
+  sobreidentificacion: {
+    number: '03', title: 'Cuando un caso despierta recuerdos personales', time: 'Viernes 16:15',
+    description: 'Después de una sesión, una situación narrada por el consultante te recuerda una experiencia personal. Notas deseos de intervenir más allá de tu rol profesional.',
+    sender: 'Reflexión de práctica (ficticia)', messageOne: 'Me preocupa mucho lo que escuché. Quiero asegurarme de que todo salga bien.', messageTwo: 'Quizá debería ofrecer más tiempo del acordado aunque esté agotada.',
+    options: {
+      A: ['Aumentar la disponibilidad sin supervisión', 'Extender sesiones y asumir una responsabilidad personal extraordinaria.'],
+      B: ['Reconocer la reacción y buscar supervisión', 'Registrar sin datos clínicos la resonancia emocional, cuidar el descanso y consultar con el supervisor el encuadre adecuado.'],
+      C: ['Negar la reacción y continuar sin reflexión', 'Desestimar las señales de agotamiento o identificación personal.']
+    },
+    feedback: {
+      A: ['Opción A: Sobrecarga por sobreimplicación', 'La disponibilidad ilimitada no garantiza mejor atención y puede debilitar la capacidad de acompañamiento.'],
+      B: ['Opción B: Autoconciencia y supervisión (recomendada)', 'Reconocer los propios límites y consultar en supervisión permite sostener un trabajo profesional más cuidadoso.'],
+      C: ['Opción C: Falta de autorregulación', 'Ignorar las propias señales emocionales puede dificultar la reflexión clínica y el bienestar.']
+    },
+    script: '«Este caso activó una reacción emocional en mí. Quiero revisarla en supervisión y acordar estrategias para mantener el encuadre y cuidar mi bienestar». Evita incluir información identificable.'
+  },
+  honorarios: {
+    number: '04', title: 'Un regalo al finalizar el acompañamiento', time: 'Lunes 15:00',
+    description: 'Una persona agradecida quiere entregar un regalo costoso durante el cierre de un proceso. La institución tiene lineamientos sobre obsequios y posibles conflictos de interés.',
+    sender: 'Consultante de ejemplo', messageOne: 'Le compré algo especial por todo lo que me ayudó.', messageTwo: 'Me sentiría mal si no lo recibe.',
+    options: {
+      A: ['Aceptar sin evaluar el encuadre ético', 'Recibir un obsequio costoso por temor a incomodar.'],
+      B: ['Agradecer y consultar las normas institucionales', 'Validar la intención, explicar límites profesionales y acordar una respuesta cuidadosa conforme a las reglas aplicables.'],
+      C: ['Rechazar bruscamente y terminar la conversación', 'Descalificar el gesto sin ofrecer una explicación respetuosa.']
+    },
+    feedback: {
+      A: ['Opción A: Riesgo de conflicto de interés', 'Aceptar un regalo costoso sin valoración ética puede afectar el encuadre y la relación profesional.'],
+      B: ['Opción B: Límite respetuoso y fundamentado (recomendada)', 'Agradecer, explicar los límites y consultar los lineamientos de la institución permite cuidar la relación sin comprometer el rol profesional.'],
+      C: ['Opción C: Riesgo de trato desconsiderado', 'Un límite claro no requiere invalidar el gesto; puede comunicarse de manera empática.']
+    },
+    script: '«Agradezco mucho el gesto y lo que significa para ti. Como parte de mi rol debo respetar las pautas de la institución sobre regalos. Podemos conversar sobre lo que representa este agradecimiento en nuestro cierre». Consulta el criterio profesional según el contexto.'
   }
 };
+let activeLimitCategory = 'horarios';
 
-function initLimites() {
-  const optionCards = document.querySelectorAll('#decision-options .option-card');
-  optionCards.forEach((card, idx) => {
-    const letters = ['A', 'B', 'C'];
-    card.addEventListener('click', (e) => {
-      window.selectOption(letters[idx]);
+function setLimitText(id, value) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = value;
+}
+function resetLimitSelection() {
+  document.querySelectorAll('#decision-options .option-card').forEach((card) => {
+    card.classList.remove('bg-primary-fixed','text-on-primary-fixed','ring-2','ring-primary');
+    card.classList.add('bg-surface-container-low');
+    card.setAttribute('aria-pressed','false');
+  });
+  setLimitText('feedback-title','Selecciona una opción para explorar su impacto');
+  setLimitText('feedback-body','Revisa las consecuencias formativas. Las recomendaciones no sustituyen protocolos clínicos ni supervisión profesional.');
+  setLimitText('feedback-icon','tips_and_updates');
+}
+function changeLimitCategory(key) {
+  const data = LIMIT_CASES[key];
+  if (!data) return;
+  activeLimitCategory = key;
+  document.querySelectorAll('[data-limit-category]').forEach((button) => {
+    const active = button.dataset.limitCategory === key;
+    button.classList.toggle('bg-primary-container',active);
+    button.classList.toggle('text-on-primary-container',active);
+    button.classList.toggle('bg-surface-container-low',!active);
+    button.classList.toggle('text-on-surface',!active);
+    button.setAttribute('aria-pressed',String(active));
+    const status = button.querySelector('[data-category-status]');
+    if (status) status.textContent = active ? 'Activo' : '1 caso';
+  });
+  setLimitText('limit-case-number',`Dilema #${data.number}`);
+  setLimitText('limit-case-time',data.time);
+  setLimitText('limit-case-title',data.title);
+  setLimitText('limit-case-description',data.description);
+  setLimitText('limit-case-sender',data.sender);
+  setLimitText('limit-case-message-one',data.messageOne);
+  setLimitText('limit-case-message-two',data.messageTwo);
+  ['A','B','C'].forEach((letter) => {
+    setLimitText(`limit-option-${letter.toLowerCase()}-title`, data.options[letter][0]);
+    setLimitText(`limit-option-${letter.toLowerCase()}-desc`, data.options[letter][1]);
+  });
+  setLimitText('script-text',data.script);
+  const counter = document.querySelector('#view-limites .uppercase.tracking-wider');
+  if (counter && counter.textContent.includes('Simulación Clínica')) counter.textContent = `Simulación Clínica #${data.number} / 04`;
+  resetLimitSelection();
+}
+window.selectOption = function(option, card = null) {
+  const data = LIMIT_CASES[activeLimitCategory];
+  if (!data || !data.feedback[option]) return;
+  resetLimitSelection();
+  if (card) {
+    card.classList.remove('bg-surface-container-low');
+    card.classList.add('bg-primary-fixed','text-on-primary-fixed','ring-2','ring-primary');
+    card.setAttribute('aria-pressed','true');
+  }
+  setLimitText('feedback-title',data.feedback[option][0]);
+  setLimitText('feedback-body',data.feedback[option][1]);
+  const icon = document.getElementById('feedback-icon');
+  if (icon) {
+    icon.textContent = option === 'B' ? 'verified' : option === 'A' ? 'warning' : 'help';
+    icon.className = `material-symbols-outlined text-2xl ${option === 'B' ? 'text-primary' : 'text-secondary'}`;
+  }
+  // Hacer visible la explicación si el usuario está en una pantalla pequeña.
+  const feedback = document.getElementById('feedback-panel');
+  if (feedback && window.matchMedia('(max-width: 768px)').matches) feedback.scrollIntoView({behavior:'smooth',block:'center'});
+};
+
+const SUPERVISION_STORAGE_KEY = 'psicopausa_supervision_notes_v1';
+function getSupervisionNotes() {
+  try { const rows = JSON.parse(localStorage.getItem(SUPERVISION_STORAGE_KEY) || '[]'); return Array.isArray(rows) ? rows : []; }
+  catch { return []; }
+}
+function renderSupervisionNotes() {
+  const list = document.getElementById('supervision-saved-list');
+  if (!list) return;
+  list.replaceChildren();
+  const notes = getSupervisionNotes();
+  if (!notes.length) return;
+  const header=document.createElement('strong');
+  header.textContent=`Mis notas guardadas (${notes.length})`;
+  header.className='font-label-md text-label-md text-on-surface';
+  list.appendChild(header);
+  notes.forEach((note) => {
+    const article=document.createElement('div');
+    article.className='p-space-sm bg-surface-container-lowest rounded-xl flex flex-col gap-space-xs';
+    const title=document.createElement('strong');
+    title.className='font-body-sm text-body-sm text-on-surface';
+    title.textContent=note.dateLabel || 'Nota guardada';
+    const body=document.createElement('p');
+    body.className='font-body-sm text-body-sm text-on-surface-variant whitespace-pre-wrap break-words';
+    body.textContent=note.text;
+    article.append(title,body);
+    if (note.checks?.length) {
+      const extras=document.createElement('p');
+      extras.className='font-body-sm text-body-sm text-on-surface-variant';
+      extras.textContent=`Aspectos identificados: ${note.checks.join(' · ')}`;
+      article.appendChild(extras);
+    }
+    const remove=document.createElement('button');
+    remove.type='button'; remove.textContent='Eliminar esta nota';
+    remove.className='text-error font-label-sm text-label-sm self-start underline';
+    remove.addEventListener('click',() => {
+      if (!window.confirm('¿Eliminar esta nota guardada en este navegador?')) return;
+      try {
+        localStorage.setItem(SUPERVISION_STORAGE_KEY, JSON.stringify(getSupervisionNotes().filter((item) => item.id !== note.id)));
+        renderSupervisionNotes();
+      } catch { alert('No se pudo eliminar la nota.'); }
     });
+    article.appendChild(remove);
+    list.appendChild(article);
+  });
+}
+function initLimites() {
+  document.querySelectorAll('[data-limit-category]').forEach((button) => {
+    // marca el chip de estado para sincronizarlo con la categoría activa
+    const status = button.querySelector('.font-label-sm');
+    if (status) status.dataset.categoryStatus='true';
+    button.addEventListener('click',() => changeLimitCategory(button.dataset.limitCategory));
+  });
+  const cards = document.querySelectorAll('#decision-options .option-card');
+  cards.forEach((card,index) => {
+    const letter=['A','B','C'][index];
+    card.addEventListener('click', () => window.selectOption(letter,card));
+    card.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); window.selectOption(letter,card); }
+    });
+  });
+  changeLimitCategory('horarios');
+
+  const open = document.getElementById('supervision-open-btn');
+  const editor = document.getElementById('supervision-editor');
+  const save = document.getElementById('supervision-save-btn');
+  const status = document.getElementById('supervision-status');
+  const input = document.getElementById('supervision-note-text');
+  if (open && editor) open.addEventListener('click', () => {
+    editor.classList.toggle('hidden');
+    open.setAttribute('aria-expanded',String(!editor.classList.contains('hidden')));
+    if (!editor.classList.contains('hidden')) {renderSupervisionNotes(); input?.focus();}
+  });
+  if (save && input) save.addEventListener('click',() => {
+    const text=input.value.trim();
+    const checks=[...document.querySelectorAll('#supervision-checklist input[type="checkbox"]:checked')]
+      .map((checkbox) => checkbox.closest('label')?.querySelector('span')?.textContent.trim().replace(/\s+/g,' ').slice(0,180))
+      .filter(Boolean);
+    if (!text && checks.length === 0) {
+      if (status) status.textContent='Escribe una reflexión o selecciona un aspecto para guardar.';
+      return;
+    }
+    const now=new Date();
+    const entry={id:Date.now().toString(36)+'-'+Math.random().toString(36).slice(2),dateLabel:now.toLocaleString('es-CO'),text,checks};
+    try {
+      localStorage.setItem(SUPERVISION_STORAGE_KEY, JSON.stringify([entry,...getSupervisionNotes()]));
+      input.value='';
+      if (status) status.textContent='✓ Reflexión guardada en este navegador.';
+      renderSupervisionNotes();
+    } catch {
+      if (status) status.textContent='No se pudo guardar. Revisa el almacenamiento del navegador.';
+    }
+  });
+  renderSupervisionNotes();
+  const draft=document.getElementById('supervision-email-draft-btn');
+  if (draft) draft.addEventListener('click', () => {
+    const subject=encodeURIComponent('Solicitud de acompañamiento - Bienestar Universitario');
+    const body=encodeURIComponent('Hola. Quisiera solicitar orientación para contactar a Bienestar Universitario o a mi coordinación de prácticas.\n\nPor favor indíquenme los canales institucionales habilitados.\n\n[Tu nombre]');
+    window.location.href=`mailto:?subject=${subject}&body=${body}`;
   });
 }
 

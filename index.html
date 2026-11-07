@@ -946,7 +946,7 @@
 <span class="material-symbols-outlined text-sm">balance</span>
           Módulo de Ética Aplicada
         </span>
-<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Simulación Clínica #04 / 12</span>
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Simulación Clínica #01 / 04</span>
 </div>
 <div class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm bg-surface-container-high px-space-md py-space-xs rounded-full">
 <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
@@ -964,7 +964,7 @@
 </section>
 <!-- Categories / Thematic Pillars -->
 <nav aria-label="Ejes temáticos de límites" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md mb-space-xl">
-<button class="group flex flex-col p-space-md rounded-xl text-left bg-primary-container text-on-primary-container shadow-md transition-all duration-300" type="button">
+<button data-limit-category="horarios" class="group flex flex-col p-space-md rounded-xl text-left bg-primary-container text-on-primary-container shadow-md transition-all duration-300" type="button">
 <div class="flex items-center justify-between mb-space-sm">
 <span class="material-symbols-outlined text-2xl text-on-primary-container">chat_bubble</span>
 <span class="font-label-sm text-label-sm px-space-sm py-0.5 rounded-full bg-surface-container-lowest/20 text-on-primary-container">Activo</span>
@@ -972,26 +972,26 @@
 <span class="font-headline-sm text-headline-sm leading-snug">Mensajes fuera de horario</span>
 <span class="font-body-sm text-body-sm opacity-90 mt-1">Canales informales y demandas espontáneas</span>
 </button>
-<button class="group flex flex-col p-space-md rounded-xl text-left bg-surface-container-low text-on-surface hover:bg-surface-container transition-all duration-200" type="button">
+<button data-limit-category="confidencialidad" class="group flex flex-col p-space-md rounded-xl text-left bg-surface-container-low text-on-surface hover:bg-surface-container transition-all duration-200" type="button">
 <div class="flex items-center justify-between mb-space-sm">
 <span class="material-symbols-outlined text-2xl text-primary">policy</span>
-<span class="font-label-sm text-label-sm text-outline">3 casos</span>
+<span class="font-label-sm text-label-sm text-outline">1 caso</span>
 </div>
 <span class="font-headline-sm text-headline-sm text-on-surface leading-snug">Confidencialidad</span>
 <span class="font-body-sm text-body-sm text-on-surface-variant mt-1">Presión de directivos y familias</span>
 </button>
-<button class="group flex flex-col p-space-md rounded-xl text-left bg-surface-container-low text-on-surface hover:bg-surface-container transition-all duration-200" type="button">
+<button data-limit-category="sobreidentificacion" class="group flex flex-col p-space-md rounded-xl text-left bg-surface-container-low text-on-surface hover:bg-surface-container transition-all duration-200" type="button">
 <div class="flex items-center justify-between mb-space-sm">
 <span class="material-symbols-outlined text-2xl text-primary">favorite_border</span>
-<span class="font-label-sm text-label-sm text-outline">4 casos</span>
+<span class="font-label-sm text-label-sm text-outline">1 caso</span>
 </div>
 <span class="font-headline-sm text-headline-sm text-on-surface leading-snug">Sobreidentificación</span>
 <span class="font-body-sm text-body-sm text-on-surface-variant mt-1">Resonancias personales y contratransferencia</span>
 </button>
-<button class="group flex flex-col p-space-md rounded-xl text-left bg-surface-container-low text-on-surface hover:bg-surface-container transition-all duration-200" type="button">
+<button data-limit-category="honorarios" class="group flex flex-col p-space-md rounded-xl text-left bg-surface-container-low text-on-surface hover:bg-surface-container transition-all duration-200" type="button">
 <div class="flex items-center justify-between mb-space-sm">
 <span class="material-symbols-outlined text-2xl text-primary">handshake</span>
-<span class="font-label-sm text-label-sm text-outline">2 casos</span>
+<span class="font-label-sm text-label-sm text-outline">1 caso</span>
 </div>
 <span class="font-headline-sm text-headline-sm text-on-surface leading-snug">Honorarios y Cierres</span>
 <span class="font-body-sm text-body-sm text-on-surface-variant mt-1">Regalos, tarifas y despedidas clínicas</span>
@@ -1004,17 +1004,17 @@
 <!-- Dilemma Case Card -->
 <article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col">
 <div class="flex items-center justify-between gap-space-sm mb-space-md">
-<span class="px-space-md py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md font-semibold">
-            Dilema #04
+<span id="limit-case-number" class="px-space-md py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md font-semibold">
+            Dilema #01
           </span>
-<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span id="limit-case-time" class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
 <span class="material-symbols-outlined text-sm text-secondary">schedule</span> Domingo 22:47
           </span>
 </div>
-<h2 class="font-headline-md text-headline-md text-primary mb-space-xs">
+<h2 id="limit-case-title" class="font-headline-md text-headline-md text-primary mb-space-xs">
           Mensaje de angustia a tu WhatsApp personal
         </h2>
-<p class="font-body-md text-body-md text-on-surface-variant mb-space-lg leading-relaxed">
+<p id="limit-case-description" class="font-body-md text-body-md text-on-surface-variant mb-space-lg leading-relaxed">
           Un consultante de 23 años con historia de desregulación afectiva (a quien atendiste en sesión el jueves pasado) escribe directamente a tu número personal, el cual obtuvo del directorio de la institución donde realizas tu práctica.
         </p>
 <!-- Realistic Messaging Mockup -->
@@ -1024,20 +1024,20 @@
 <span class="w-7 h-7 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center font-label-sm text-label-sm font-semibold">
                 M.A.
               </span>
-<span class="font-label-md text-label-md font-semibold text-on-surface">Consultante M. A.</span>
+<span id="limit-case-sender" class="font-label-md text-label-md font-semibold text-on-surface">Consultante M. A.</span>
 </div>
 <span class="font-label-sm text-label-sm text-outline">No guardado</span>
 </div>
 <!-- Chat Bubbles -->
 <div class="flex flex-col gap-space-xs pt-space-xs">
 <div class="max-w-[85%] bg-surface-container-lowest p-space-sm rounded-xl rounded-tl-none shadow-sm flex flex-col gap-1">
-<p class="font-body-sm text-body-sm text-on-surface">
+<p id="limit-case-message-one" class="font-body-sm text-body-sm text-on-surface">
                 Hola licenciada, disculpe la hora de verdad, pero ya no aguanto más la angustia. Discutí fuerte con mi mamá y siento que todo lo que hablamos el jueves no sirvió de nada.
               </p>
 <span class="font-label-sm text-label-sm text-outline text-right">22:45</span>
 </div>
 <div class="max-w-[85%] bg-surface-container-lowest p-space-sm rounded-xl rounded-tl-none shadow-sm flex flex-col gap-1">
-<p class="font-body-sm text-body-sm text-on-surface">
+<p id="limit-case-message-two" class="font-body-sm text-body-sm text-on-surface">
                 ¿Está ahí? No sé si voy a poder dormir hoy. Por favor responda solo un minuto.
               </p>
 <span class="font-label-sm text-label-sm text-outline text-right">22:47</span>
@@ -1095,16 +1095,16 @@
 <!-- Options Container -->
 <div class="flex flex-col gap-space-sm mt-space-xs" id="decision-options">
 <!-- Option A -->
-<div class="option-card cursor-pointer p-space-md rounded-xl bg-surface-container-low transition-all duration-200" onclick="selectOption('A')">
+<div role="button" tabindex="0" aria-pressed="false" class="option-card cursor-pointer p-space-md rounded-xl bg-surface-container-low transition-all duration-200">
 <div class="flex items-start gap-space-sm">
 <span class="w-6 h-6 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-label-md text-label-md font-semibold shrink-0 mt-0.5">
                 A
               </span>
 <div class="flex-1">
-<span class="font-headline-sm text-headline-sm text-on-surface block mb-1">
+<span id="limit-option-a-title" class="font-headline-sm text-headline-sm text-on-surface block mb-1">
                   Responder de inmediato y abrir sesión breve de contención por chat
                 </span>
-<p class="font-body-sm text-body-sm text-on-surface-variant">
+<p id="limit-option-a-desc" class="font-body-sm text-body-sm text-on-surface-variant">
                   «Tranquilo/a, cuéntame qué pasó exactamente con tu madre. Respira conmigo y revisemos qué hacer.»
                 </p>
 </div>
@@ -1112,16 +1112,16 @@
 </div>
 </div>
 <!-- Option B (Recomended) -->
-<div class="option-card cursor-pointer p-space-md rounded-xl bg-surface-container-low transition-all duration-200" onclick="selectOption('B')">
+<div role="button" tabindex="0" aria-pressed="false" class="option-card cursor-pointer p-space-md rounded-xl bg-surface-container-low transition-all duration-200">
 <div class="flex items-start gap-space-sm">
 <span class="w-6 h-6 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-label-md text-label-md font-semibold shrink-0 mt-0.5">
                 B
               </span>
 <div class="flex-1">
-<span class="font-headline-sm text-headline-sm text-on-surface block mb-1">
+<span id="limit-option-b-title" class="font-headline-sm text-headline-sm text-on-surface block mb-1">
                   Respuesta protocolizada de encuadre institucional + canal de crisis
                 </span>
-<p class="font-body-sm text-body-sm text-on-surface-variant">
+<p id="limit-option-b-desc" class="font-body-sm text-body-sm text-on-surface-variant">
                   Recordar que este canal no es para atención de urgencias, activar número de crisis 24/7 y agendar revisión del caso para el próximo horario hábil acordado.
                 </p>
 </div>
@@ -1129,16 +1129,16 @@
 </div>
 </div>
 <!-- Option C -->
-<div class="option-card cursor-pointer p-space-md rounded-xl bg-surface-container-low transition-all duration-200" onclick="selectOption('C')">
+<div role="button" tabindex="0" aria-pressed="false" class="option-card cursor-pointer p-space-md rounded-xl bg-surface-container-low transition-all duration-200">
 <div class="flex items-start gap-space-sm">
 <span class="w-6 h-6 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-label-md text-label-md font-semibold shrink-0 mt-0.5">
                 C
               </span>
 <div class="flex-1">
-<span class="font-headline-sm text-headline-sm text-on-surface block mb-1">
+<span id="limit-option-c-title" class="font-headline-sm text-headline-sm text-on-surface block mb-1">
                   Ignorar el mensaje por completo hasta la próxima sesión regular
                 </span>
-<p class="font-body-sm text-body-sm text-on-surface-variant">
+<p id="limit-option-c-desc" class="font-body-sm text-body-sm text-on-surface-variant">
                   No abrir la aplicación, no enviar acuse y esperar al jueves de la siguiente semana para abordar la transgresión en persona sin haber establecido pautas previas.
                 </p>
 </div>
@@ -1192,7 +1192,7 @@
           </button>
 </div>
 <p class="font-body-md text-body-md italic bg-on-primary/10 p-space-md rounded-xl text-primary-fixed" id="script-text">
-          «Hola [Nombre]. Recibo tu mensaje. Te recuerdo que este teléfono no es un servicio de urgencias ni un canal de atención terapéutica continua. Si te encuentras en una crisis que no puedes regular, por favor comunícate a la Línea de Contención 24/7 al 800-911-2000 o acude al centro de salud más cercano. Retomaremos este episodio en nuestro espacio habitual este jueves a las 16:00 h.»
+          «Hola [Nombre]. Recibo tu mensaje. Te recuerdo que este teléfono no es un servicio de urgencias ni un canal de atención terapéutica continua. Si te encuentras en una crisis que no puedes regular, por favor comunícate a la Línea 106 de orientación en salud mental en Colombia o acude al centro de salud más cercano. Retomaremos lo ocurrido en nuestro próximo espacio acordado.»
         </p>
 <span class="font-label-sm text-label-sm text-primary-fixed/80">
           Tip clínico: La firmeza amorosa evita que el consultante sienta que necesitas ser complacido o que eres su única red de apoyo vital.
@@ -1215,7 +1215,7 @@
           Usa este autoexamen rápido. Si marcas dos o más casillas, te sugerimos priorizar este caso en tu próxima reunión con tu docente o supervisor de práctica:
         </p>
 <!-- Checklist -->
-<div class="flex flex-col gap-space-sm">
+<div id="supervision-checklist" class="flex flex-col gap-space-sm">
 <label class="flex items-start gap-space-sm p-space-sm rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer">
 <input class="mt-1 w-4 h-4 rounded text-primary accent-primary cursor-pointer" type="checkbox"/>
 <span class="font-body-md text-body-md text-on-surface">
@@ -1247,10 +1247,20 @@
 <span class="font-label-sm text-label-sm text-outline">
           Tus notas quedan almacenadas localmente en este navegador.
         </span>
-<button class="px-space-lg py-space-sm rounded-xl bg-primary text-on-primary hover:bg-primary-container transition-all duration-200 font-label-lg text-label-lg flex items-center gap-space-xs shadow-sm" type="button">
+<button id="supervision-open-btn" aria-controls="supervision-editor" aria-expanded="false" class="px-space-lg py-space-sm rounded-xl bg-primary text-on-primary hover:bg-primary-container transition-all duration-200 font-label-lg text-label-lg flex items-center gap-space-xs shadow-sm" type="button">
 <span class="material-symbols-outlined text-lg">edit_note</span>
           Anotar reflexiones para mi próxima supervisión
         </button>
+</div>
+<div id="supervision-editor" class="hidden mt-space-lg p-space-md rounded-xl bg-surface-container-low border border-outline-variant/40 flex flex-col gap-space-sm" aria-label="Notas privadas de supervisión">
+<label for="supervision-note-text" class="font-label-lg text-label-lg text-on-surface font-semibold">Mi reflexión para la próxima supervisión</label>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Escribe sobre tu autocuidado y tu aprendizaje. No incluyas nombres, historias clínicas ni datos que identifiquen consultantes. El registro se conserva únicamente en este navegador, sin cifrado.</p>
+<textarea id="supervision-note-text" rows="4" maxlength="3000" class="w-full p-space-md rounded-xl bg-surface-container-lowest border border-outline-variant/40 font-body-md text-body-md text-on-surface" placeholder="¿Qué necesito conversar con mi supervisor? ¿Qué límite profesional quiero fortalecer?"></textarea>
+<div class="flex flex-wrap items-center gap-space-sm">
+<button id="supervision-save-btn" type="button" class="px-space-lg py-space-sm rounded-xl bg-primary text-on-primary hover:bg-primary-container font-label-md text-label-md">Guardar nota en este navegador</button>
+<span id="supervision-status" class="font-body-sm text-body-sm text-on-surface-variant" role="status" aria-live="polite"></span>
+</div>
+<div id="supervision-saved-list" class="flex flex-col gap-space-sm" aria-live="polite"></div>
 </div>
 </section>
 <!-- Clinical Templates & Resources (5 cols) -->
@@ -1272,12 +1282,12 @@
 <span class="material-symbols-outlined text-2xl text-primary group-hover:scale-110 transition-transform">description</span>
 <div>
 <span class="font-headline-sm text-headline-sm text-on-surface block leading-tight">Consentimiento y Encuadre Digital</span>
-<span class="font-label-sm text-label-sm text-outline">PDF Formato editable · 2 páginas</span>
+<span class="font-label-sm text-label-sm text-outline">Plantilla PDF para completar · 2 páginas</span>
 </div>
 </div>
-<button class="p-space-xs rounded-full hover:bg-surface-container-high text-primary" title="Descargar" type="button">
+<a href="consentimiento-encuadre-digital.pdf" download class="p-space-xs rounded-full hover:bg-surface-container-high text-primary" title="Descargar PDF" type="button">
 <span class="material-symbols-outlined text-xl">download</span>
-</button>
+</a>
 </div>
 <div class="p-space-md rounded-xl bg-surface-container-lowest flex items-center justify-between shadow-sm hover:shadow transition-all group">
 <div class="flex items-center gap-space-sm">
@@ -1287,9 +1297,9 @@
 <span class="font-label-sm text-label-sm text-outline">12 fórmulas de respuesta respetuosa</span>
 </div>
 </div>
-<button class="p-space-xs rounded-full hover:bg-surface-container-high text-primary" title="Descargar" type="button">
+<a href="guia-asertividad-clinica.pdf" download class="p-space-xs rounded-full hover:bg-surface-container-high text-primary" title="Descargar PDF" type="button">
 <span class="material-symbols-outlined text-xl">download</span>
-</button>
+</a>
 </div>
 <div class="p-space-md rounded-xl bg-surface-container-lowest flex items-center justify-between shadow-sm hover:shadow transition-all group">
 <div class="flex items-center gap-space-sm">
@@ -1299,9 +1309,9 @@
 <span class="font-label-sm text-label-sm text-outline">Líneas gratuitas de salud mental</span>
 </div>
 </div>
-<button class="p-space-xs rounded-full hover:bg-surface-container-high text-primary" title="Descargar" type="button">
+<a href="directorio-crisis-colombia.pdf" download class="p-space-xs rounded-full hover:bg-surface-container-high text-primary" title="Descargar PDF" type="button">
 <span class="material-symbols-outlined text-xl">download</span>
-</button>
+</a>
 </div>
 </div>
 </div>
@@ -1782,7 +1792,7 @@
           </p>
 <div class="flex items-center gap-space-xs text-primary font-label-sm text-label-sm pt-space-xs">
 <span class="material-symbols-outlined text-sm">schedule</span>
-<span>Atención 24/7 · Totalmente confidencial</span>
+<span>Apoyo emocional: consulta condiciones y disponibilidad</span>
 </div>
 </div>
 <div class="flex flex-col gap-space-sm mt-space-lg">
@@ -1790,9 +1800,9 @@
 <span class="material-symbols-outlined text-xl">phone_in_talk</span>
 <span>Llamar al 106 Gratis</span>
 </a>
-<a class="w-full py-space-sm px-space-md bg-surface-container-high hover:bg-surface-container-highest text-on-surface rounded-xl font-label-md text-label-md flex items-center justify-center gap-space-xs transition-all" href="https://wa.me/573177012356" rel="noopener noreferrer" target="_blank">
+<a class="w-full py-space-sm px-space-md bg-surface-container-high hover:bg-surface-container-highest text-on-surface rounded-xl font-label-md text-label-md flex items-center justify-center gap-space-xs transition-all" href="https://minsalud.gov.co/salud/publica/salud-mental/Paginas/linea-106.aspx" rel="noopener noreferrer" target="_blank">
 <span class="material-symbols-outlined text-lg text-primary">chat</span>
-<span>Canal WhatsApp Institucional</span>
+<span>Información oficial de la Línea 106</span>
 </a>
 </div>
 </article>
@@ -1810,7 +1820,7 @@
           </p>
 <div class="flex items-center gap-space-xs text-error font-label-sm text-label-sm pt-space-xs">
 <span class="material-symbols-outlined text-sm">ambulance</span>
-<span>Despacho prioritario a tu ubicación</span>
+<span>Contacta a emergencias; confirma tu ubicación al operador</span>
 </div>
 </div>
 <div class="flex flex-col gap-space-sm mt-space-lg">
@@ -1831,21 +1841,21 @@
 </div>
 <h3 class="font-headline-sm text-headline-sm text-on-surface mt-space-xs">Comité &amp; Bienestar</h3>
 <p class="font-body-sm text-body-sm text-on-surface-variant">
-            Activación de red académica de contención. Apoyo del Coordinador de Prácticas Clínicas sin repercusión punitiva.
+            Acude a Bienestar Universitario o al coordinador de prácticas usando los datos de contacto oficiales de tu institución. PsicoPausa no envía alertas automáticamente.
           </p>
 <div class="flex items-center gap-space-xs text-tertiary font-label-sm text-label-sm pt-space-xs">
 <span class="material-symbols-outlined text-sm">shield_with_heart</span>
-<span>Resguardo de salud y relevo temporal</span>
+<span>Contacta directamente a tu institución</span>
 </div>
 </div>
 <div class="flex flex-col gap-space-sm mt-space-lg">
-<a class="w-full py-space-sm px-space-md bg-tertiary hover:bg-tertiary-container text-on-tertiary rounded-xl font-label-lg text-label-lg flex items-center justify-center gap-space-xs shadow-md transition-all" href="tel:+573009123456">
+<a class="w-full py-space-sm px-space-md bg-tertiary hover:bg-tertiary-container text-on-tertiary rounded-xl font-label-lg text-label-lg flex items-center justify-center gap-space-xs shadow-md transition-all" href="https://minsalud.gov.co/salud/publica/salud-mental/Paginas/linea-106.aspx" rel="noopener noreferrer" target="_blank">
 <span class="material-symbols-outlined text-xl">contact_phone</span>
-<span>Llamar a Coordinación</span>
+<span>Consultar apoyo oficial disponible</span>
 </a>
-<button class="w-full py-space-sm px-space-md bg-surface-container-high hover:bg-surface-container-highest text-on-surface rounded-xl font-label-md text-label-md flex items-center justify-center gap-space-xs transition-all" onclick="alert('Notificación de emergencia enviada al tutor y bienestar estudiantil. Mantén la calma, te contactaremos en breve.');" type="button">
+<button class="w-full py-space-sm px-space-md bg-surface-container-high hover:bg-surface-container-highest text-on-surface rounded-xl font-label-md text-label-md flex items-center justify-center gap-space-xs transition-all" id="supervision-email-draft-btn" type="button">
 <span class="material-symbols-outlined text-lg">mail</span>
-<span>Alerta de Relevo Inmediato</span>
+<span>Preparar solicitud de acompañamiento</span>
 </button>
 </div>
 </article>
@@ -1857,21 +1867,21 @@
 <span class="px-space-sm py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">MinSalud Colombia</span>
 <span class="material-symbols-outlined text-secondary">health_and_safety</span>
 </div>
-<h3 class="font-headline-sm text-headline-sm text-on-surface mt-space-xs">Línea Nacional 192</h3>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mt-space-xs">Orientación oficial en salud mental</h3>
 <p class="font-body-sm text-body-sm text-on-surface-variant">
-            Opción 4: Teleapoyo psicológico ministerial. Profesionales clínicos para desacelerar crisis agudas y contención vicaria.
+            Consulta la Línea 106 y el directorio territorial publicado por el Ministerio de Salud. El servicio 192, opción 4, figuraba en documentación de 2020; no asumimos su vigencia actual.
           </p>
 <div class="flex items-center gap-space-xs text-secondary font-label-sm text-label-sm pt-space-xs">
 <span class="material-symbols-outlined text-sm">public</span>
-<span>Cobertura en todo el territorio nacional</span>
+<span>Verifica disponibilidad según territorio</span>
 </div>
 </div>
 <div class="flex flex-col gap-space-sm mt-space-lg">
-<a class="w-full py-space-sm px-space-md bg-secondary hover:bg-on-secondary-container text-on-secondary rounded-xl font-label-lg text-label-lg flex items-center justify-center gap-space-xs shadow-md transition-all" href="tel:192">
+<a class="w-full py-space-sm px-space-md bg-secondary hover:bg-on-secondary-container text-on-secondary rounded-xl font-label-lg text-label-lg flex items-center justify-center gap-space-xs shadow-md transition-all" href="https://minsalud.gov.co/salud/publica/salud-mental/Paginas/linea-106.aspx" rel="noopener noreferrer" target="_blank">
 <span class="material-symbols-outlined text-xl">phone</span>
-<span>Marcar 192 (Opción 4)</span>
+<span>Consultar línea oficial y directorio</span>
 </a>
-<span class="text-center font-label-sm text-label-sm text-on-surface-variant py-1">Línea del Ministerio de Salud</span>
+<span class="text-center font-label-sm text-label-sm text-on-surface-variant py-1">Portal oficial del Ministerio de Salud</span>
 </div>
 </article>
 </div>
@@ -1994,7 +2004,7 @@
 </div>
 <span class="font-label-sm text-label-sm text-primary font-semibold flex items-center gap-1">
 <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-          Geolocalización Activa
+          Ubicaciones de ejemplo · Verificar en Maps
         </span>
 </div>
 <!-- CONTENEDOR DE MAPA CON ATRIBUTO OBLIGATORIO data-location -->
@@ -2008,7 +2018,7 @@
 </div>
 <div class="flex flex-col">
 <span class="font-label-lg text-label-lg text-on-surface font-semibold">Hospital Universitario San Rafael (Urgencias 24h)</span>
-<span class="font-body-sm text-body-sm text-on-surface-variant">A 1.4 km de tu ubicación aproximada · Servicio de Interconsulta Psiquiátrica</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Consulta dirección y distancia reales en Google Maps · Servicio de Interconsulta Psiquiátrica</span>
 </div>
 </div>
 <a class="px-space-md py-space-xs bg-primary hover:bg-primary-container text-on-primary rounded-xl font-label-md text-label-md flex items-center gap-space-xs shrink-0 shadow-sm" href="https://maps.google.com" rel="noopener noreferrer" target="_blank">
@@ -2034,9 +2044,9 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant">Unidad especializada en crisis aguda y estabilización emocional.</p>
 <div class="flex items-center justify-between pt-space-xs">
 <span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
-<span class="material-symbols-outlined text-sm">distance</span> 2.8 km
+<span class="material-symbols-outlined text-sm">distance</span> Distancia por verificar
             </span>
-<a class="text-primary hover:text-primary-container font-label-md text-label-md flex items-center gap-0.5 font-semibold" href="tel:+5787400000">
+<a class="text-primary hover:text-primary-container font-label-md text-label-md flex items-center gap-0.5 font-semibold" href="https://www.google.com/maps/search/?api=1&query=urgencias+Tunja+Boyaca" target="_blank" rel="noopener noreferrer">
 <span class="material-symbols-outlined text-base">call</span> Llamar
             </a>
 </div>
@@ -2050,9 +2060,9 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant">Atención prioritaria y remisión inmediata a red de mayor complejidad.</p>
 <div class="flex items-center justify-between pt-space-xs">
 <span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
-<span class="material-symbols-outlined text-sm">distance</span> 3.5 km
+<span class="material-symbols-outlined text-sm">distance</span> Distancia por verificar
             </span>
-<a class="text-primary hover:text-primary-container font-label-md text-label-md flex items-center gap-0.5 font-semibold" href="tel:+5787422222">
+<a class="text-primary hover:text-primary-container font-label-md text-label-md flex items-center gap-0.5 font-semibold" href="https://www.google.com/maps/search/?api=1&query=urgencias+Tunja+Boyaca" target="_blank" rel="noopener noreferrer">
 <span class="material-symbols-outlined text-base">call</span> Llamar
             </a>
 </div>
@@ -2066,9 +2076,9 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant">Acompañamiento presencial preventivo si te encuentras en vía pública vulnerable.</p>
 <div class="flex items-center justify-between pt-space-xs">
 <span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
-<span class="material-symbols-outlined text-sm">distance</span> 850 m
+<span class="material-symbols-outlined text-sm">distance</span> Distancia por verificar
             </span>
-<a class="text-primary hover:text-primary-container font-label-md text-label-md flex items-center gap-0.5 font-semibold" href="tel:112">
+<a class="text-primary hover:text-primary-container font-label-md text-label-md flex items-center gap-0.5 font-semibold" href="https://www.google.com/maps/search/?api=1&query=urgencias+Tunja+Boyaca" target="_blank" rel="noopener noreferrer">
 <span class="material-symbols-outlined text-base">call</span> Llamar
             </a>
 </div>
@@ -2106,7 +2116,7 @@
     <!-- ==================== FOOTER INTEGRADO ==================== -->
     <footer class="w-full py-space-lg px-4 sm:px-6 lg:px-gutter-desktop pl-0 lg:pl-72 bg-surface-container-low/60 mt-auto border-t border-outline-variant/20 mb-16 lg:mb-0">
       <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-space-sm text-on-surface-variant text-center sm:text-left">
-        <span class="font-label-sm text-label-sm">Psico Pausa © 2024 · Plataforma de acompañamiento reflexivo para formación clínica</span>
+        <span class="font-label-sm text-label-sm">Psico Pausa © 2026 · Plataforma de acompañamiento reflexivo para formación clínica</span>
         <div class="flex items-center gap-space-lg font-label-sm text-label-sm">
           <button type="button" data-nav="limites" class="hover:text-primary transition-colors cursor-pointer">Código de Ética &amp; Límites</button>
           <button type="button" data-nav="crisis" class="hover:text-error transition-colors cursor-pointer font-semibold text-error">Línea de Crisis 24/7</button>
