@@ -1137,105 +1137,298 @@ function initRegulacion() {
 /* ==========================================================================
    5. DASHBOARD Y CHECK-IN EMOCIONAL
    ========================================================================== */
-function initDashboard() {
-  const shiftBtns = document.querySelectorAll('#shift-toggle-group .shift-btn');
-  shiftBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      shiftBtns.forEach((b) => {
-        b.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
-        b.classList.add('text-on-surface-variant');
-      });
-      btn.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
-      btn.classList.remove('text-on-surface-variant');
-    });
-  });
+const DASHBOARD_CHECKIN_KEY = 'psicopausa_checkins_v1';
+const TRANSFER_NOTES_KEY = 'psicopausa_transfer_notes_v1';
 
-  const emotionChips = document.querySelectorAll('#emotions-cloud .emotion-chip');
-  const selectedEmotions = new Set(['Calma']);
+function psicoLocalDayKey(d = new Date()) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
 
-  emotionChips.forEach((chip) => {
-    const emo = chip.getAttribute('data-emotion');
-    if (selectedEmotions.has(emo)) {
-      setChipActive(chip, true);
-    }
-
-    chip.addEventListener('click', () => {
-      const name = chip.getAttribute('data-emotion');
-      if (selectedEmotions.has(name)) {
-        selectedEmotions.delete(name);
-        setChipActive(chip, false);
-      } else {
-        if (selectedEmotions.size < 3) {
-          selectedEmotions.add(name);
-          setChipActive(chip, true);
-        } else {
-          chip.classList.add('ring-2', 'ring-secondary');
-          setTimeout(() => chip.classList.remove('ring-2', 'ring-secondary'), 300);
-        }
-      }
-    });
-  });
-
-  function setChipActive(chip, isActive) {
-    if (isActive) {
-      chip.classList.add('bg-primary-container', 'text-on-primary-container', 'font-semibold', 'ring-1', 'ring-primary');
-      chip.classList.remove('bg-surface-container', 'text-on-surface-variant');
-    } else {
-      chip.classList.remove('bg-primary-container', 'text-on-primary-container', 'font-semibold', 'ring-1', 'ring-primary');
-      chip.classList.add('bg-surface-container', 'text-on-surface-variant');
-    }
+function psicoReadRecords(key) {
+  try {
+    const saved = JSON.parse(localStorage.getItem(key) || '[]');
+    return Array.isArray(saved) ? saved.filter(item => item && typeof item === 'object') : [];
+  } catch (error) {
+    console.warn('No se pudieron leer registros locales.', error);
+    return [];
   }
+}
 
+function psicoWriteRecords(key, values) {
+  try {
+    localStorage.setItem(key, JSON.stringify(values));
+    return true;
+  } catch (error) {
+    console.error('No se pudieron guardar los registros locales.', error);
+    return false;
+  }
+}
+
+function initDashboard() {
+  const shiftBtns = [...document.querySelectorAll('#shift-toggle-group .shift-btn')];
+  const emotionChips = [...document.querySelectorAll('#emotions-cloud .emotion-chip')];
+  const selectedEmotions = new Set();
   const slider = document.getElementById('intensity-slider');
   const numDisplay = document.getElementById('intensity-number');
   const descDisplay = document.getElementById('intensity-descriptor');
-
-  const descriptors = {
-    1: 'Leve y sereno: Buen anclaje emocional. Tu energía fluye sin rumiación.',
-    2: 'Calmo y consciente: Hay presencia clínica y balance físico claro.',
-    3: 'Sensación de fatiga normal: Día de trabajo activo, pero tus fronteras están íntegras.',
-    4: 'Leve y manejable: Notas la carga de los consultantes pero puedes transitarla sin bloqueo.',
-    5: 'Tensión moderada: Aparece cierto cansancio mental. Se aconseja no sobrecargar la noche.',
-    6: 'Sobrecarga detectable: Los casos reverberan en la cabeza. Necesitas desconectar pronto.',
-    7: 'Fatiga por empatía tangible: Inquietud corporal o pesadez en el pecho tras sesiones.',
-    8: 'Saturación considerable: Deseo de aislarte o irritabilidad residual post-práctica.',
-    9: 'Agotamiento severo: Dificultad para procesar nueva información. Pausa mandatoria.',
-    10: 'Desborde emocional que requiere pausa: Por favor consulta con un colega de confianza o tu tutor.'
-  };
-
-  if (slider && numDisplay && descDisplay) {
-    slider.addEventListener('input', (e) => {
-      const val = e.target.value;
-      numDisplay.textContent = `${val} / 10`;
-      descDisplay.textContent = `"${descriptors[val] || ''}"`;
-    });
-  }
-
+  const noteInput = document.getElementById('private-note');
+  const triggerInputs = [...document.querySelectorAll('#triggers-group input[name="trigger"]')];
   const saveBtn = document.getElementById('save-log-btn');
   const toast = document.getElementById('save-toast');
   const closeToast = document.getElementById('close-toast');
 
-  if (saveBtn) {
-    saveBtn.addEventListener('click', () => {
-      saveBtn.disabled = true;
-      const originalHtml = saveBtn.innerHTML;
-      saveBtn.innerHTML = `<span class="material-symbols-outlined text-base animate-spin">progress_activity</span><span>Guardando localmente...</span>`;
+  const descriptors = {
+    1: 'Leve y sereno: Buen anclaje emocional. Tu energía fluye sin rumiación.',
+    2: 'Calmo y consciente: Hay presencia y balance físico claro.',
+    3: 'Sensación de fatiga normal: Día de trabajo activo, pero tus fronteras están íntegras.',
+    4: 'Leve y manejable: Notas la carga de la jornada, pero puedes transitarla sin bloqueo.',
+    5: 'Tensión moderada: Aparece cierto cansancio mental. Considera hacer una pausa.',
+    6: 'Intensidad notable: Quizá necesites desconectar y dedicarte un momento.',
+    7: 'Intensidad alta: Presta atención a tus necesidades de autocuidado y apoyo.',
+    8: 'Intensidad muy alta: Tómate una pausa y busca apoyo si lo necesitas.',
+    9: 'Intensidad muy alta: Prioriza el descanso y considera hablar con alguien de confianza.',
+    10: 'Intensidad máxima: Busca acompañamiento si la experiencia se siente abrumadora.'
+  };
 
-      setTimeout(() => {
-        saveBtn.disabled = false;
-        saveBtn.innerHTML = `<span class="material-symbols-outlined text-base">check</span><span>¡Registrado!</span>`;
-        if (toast) toast.classList.remove('hidden');
+  function setChipActive(chip, active) {
+    chip.classList.toggle('bg-primary-container', active);
+    chip.classList.toggle('text-on-primary-container', active);
+    chip.classList.toggle('font-semibold', active);
+    chip.classList.toggle('ring-1', active);
+    chip.classList.toggle('ring-primary', active);
+    chip.classList.toggle('bg-surface-container', !active);
+    chip.classList.toggle('text-on-surface-variant', !active);
+    chip.setAttribute('aria-pressed', String(active));
+  }
+  function syncChips() {
+    emotionChips.forEach(chip => setChipActive(chip, selectedEmotions.has(chip.dataset.emotion)));
+  }
+  function activeShift() {
+    return shiftBtns.find(btn => btn.classList.contains('bg-primary'))?.dataset.shift || 'mañana';
+  }
+  function displaySlider() {
+    if (slider && numDisplay) numDisplay.textContent = `${slider.value} / 10`;
+    if (slider && descDisplay) descDisplay.textContent = `“${descriptors[slider.value] || ''}”`;
+  }
+  function findTodayEntry() {
+    return psicoReadRecords(DASHBOARD_CHECKIN_KEY).find(entry => entry.date === psicoLocalDayKey() && entry.shift === activeShift());
+  }
+  function restoreShift() {
+    const saved = findTodayEntry();
+    selectedEmotions.clear();
+    (saved && Array.isArray(saved.emotions) && saved.emotions.length ? saved.emotions : ['Calma']).forEach(emo => selectedEmotions.add(emo));
+    syncChips();
+    if (slider) slider.value = saved ? String(saved.intensity) : '4';
+    displaySlider();
+    if (noteInput) noteInput.value = saved?.note || '';
+    triggerInputs.forEach(input => { input.checked = Array.isArray(saved?.triggers) && saved.triggers.includes(input.value); });
+    if (toast) toast.classList.add('hidden');
+    const indicator = document.getElementById('dashboard-saved-indicator');
+    if (indicator) {
+      indicator.textContent = saved ? `Registro del turno ${activeShift()} recuperado de este navegador.` : 'Aún no has guardado un registro para este turno.';
+    }
+  }
 
-        setTimeout(() => {
-          saveBtn.innerHTML = originalHtml;
-        }, 3000);
-      }, 500);
+  shiftBtns.forEach(btn => btn.addEventListener('click', () => {
+    shiftBtns.forEach(other => {
+      const active = other === btn;
+      other.classList.toggle('bg-primary', active);
+      other.classList.toggle('text-on-primary', active);
+      other.classList.toggle('shadow-sm', active);
+      other.classList.toggle('text-on-surface-variant', !active);
+      other.setAttribute('aria-pressed', String(active));
+    });
+    restoreShift();
+  }));
+  emotionChips.forEach(chip => chip.addEventListener('click', () => {
+    const emo = chip.dataset.emotion;
+    if (selectedEmotions.has(emo)) selectedEmotions.delete(emo);
+    else if (selectedEmotions.size < 3) selectedEmotions.add(emo);
+    else {
+      chip.classList.add('ring-2', 'ring-secondary');
+      setTimeout(() => chip.classList.remove('ring-2', 'ring-secondary'), 300);
+    }
+    syncChips();
+  }));
+  slider?.addEventListener('input', displaySlider);
+
+  const indicator = document.createElement('p');
+  indicator.id = 'dashboard-saved-indicator';
+  indicator.className = 'font-body-sm text-body-sm text-on-surface-variant';
+  indicator.setAttribute('role', 'status');
+  saveBtn?.parentElement?.parentElement?.after(indicator);
+
+  saveBtn?.addEventListener('click', () => {
+    if (selectedEmotions.size === 0) {
+      if (toast) {
+        toast.classList.remove('hidden');
+        toast.querySelector('span.font-label-md').textContent = 'Selecciona al menos una emoción antes de guardar.';
+      }
+      return;
+    }
+    const entry = {
+      date: psicoLocalDayKey(),
+      shift: activeShift(),
+      emotions: [...selectedEmotions],
+      intensity: Number(slider?.value || 4),
+      triggers: triggerInputs.filter(input => input.checked).map(input => input.value),
+      note: (noteInput?.value || '').trim().slice(0, 2500),
+      savedAt: new Date().toISOString()
+    };
+    const previous = psicoReadRecords(DASHBOARD_CHECKIN_KEY);
+    const updated = [entry, ...previous.filter(item => !(item.date === entry.date && item.shift === entry.shift))].slice(0, 180);
+    const success = psicoWriteRecords(DASHBOARD_CHECKIN_KEY, updated);
+    if (toast) {
+      toast.querySelector('span.font-label-md').textContent = success
+        ? 'Registro guardado con éxito en este navegador.'
+        : 'No se pudo guardar. Revisa el almacenamiento del navegador.';
+      toast.classList.remove('hidden');
+    }
+    if (success) {
+      restoreShift();
+      if (toast) toast.classList.remove('hidden');
+      renderRealWellbeingChart();
+    }
+  });
+  closeToast?.addEventListener('click', () => toast?.classList.add('hidden'));
+  restoreShift();
+  renderRealWellbeingChart();
+  initTransferJournal();
+}
+
+function renderRealWellbeingChart() {
+  const svg = document.getElementById('wellbeing-chart');
+  const labelContainer = document.getElementById('wellbeing-day-labels');
+  const emptyLabel = document.getElementById('wellbeing-empty');
+  const summary = document.getElementById('wellbeing-summary');
+  if (!svg || !labelContainer || !emptyLabel || !summary) return;
+  const now = new Date();
+  const days = Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    d.setDate(d.getDate() - 6 + i);
+    return { key: psicoLocalDayKey(d), day: d, short: d.toLocaleDateString('es-ES', {weekday: 'short'}).replace('.', '') };
+  });
+  const history = psicoReadRecords(DASHBOARD_CHECKIN_KEY);
+  const values = days.map(({key}) => {
+    const entries = history.filter(e => e.date === key && Number.isFinite(Number(e.intensity)) && Number(e.intensity) >= 1 && Number(e.intensity) <= 10);
+    return entries.length ? Math.round(entries.reduce((sum,e) => sum + Number(e.intensity), 0) / entries.length * 10) / 10 : null;
+  });
+  labelContainer.replaceChildren();
+  days.forEach(({short}, i) => {
+    const span = document.createElement('span');
+    span.textContent = short.charAt(0).toUpperCase() + short.slice(1) + (i === 6 ? ' (Hoy)' : '');
+    if (i === 6) span.className = 'text-primary font-bold';
+    labelContainer.appendChild(span);
+  });
+  svg.replaceChildren();
+  const ns = 'http://www.w3.org/2000/svg';
+  function element(tag, attrs) {
+    const el = document.createElementNS(ns, tag);
+    Object.entries(attrs).forEach(([name, value]) => el.setAttribute(name, String(value)));
+    svg.appendChild(el);
+    return el;
+  }
+  [20,60,100].forEach(y => element('line', {x1:25,x2:365,y1:y,y2:y,stroke:'currentColor','stroke-opacity':'0.15','stroke-dasharray':'3 3'}));
+  const points = values.map((value, i) => value === null ? null : {x: 30 + i * 320 / 6, y: 100 - (value - 1) * 80 / 9, value});
+  points.forEach((p, i) => {
+    if (!p) return;
+    if (i > 0 && points[i-1]) {
+      element('line', {x1:points[i-1].x,y1:points[i-1].y,x2:p.x,y2:p.y,stroke:'#126d97','stroke-width':3,'stroke-linecap':'round'});
+    }
+    const circle = element('circle', {cx:p.x,cy:p.y,r:5,fill:'#126d97'});
+    const title = document.createElementNS(ns, 'title');
+    title.textContent = `${days[i].day.toLocaleDateString('es-CO', {day:'numeric',month:'short'})}: intensidad ${p.value}/10`;
+    circle.appendChild(title);
+  });
+  const measured = values.filter(v => v !== null);
+  emptyLabel.classList.toggle('hidden', measured.length > 0);
+  if (!measured.length) {
+    summary.textContent = 'Todavía no hay registros reales en los últimos siete días. Guarda tu check-in para empezar a ver la evolución.';
+  } else {
+    const latestIndex = values.findLastIndex(v => v !== null);
+    summary.textContent = `${measured.length} día(s) con registro en los últimos siete días. Última intensidad registrada: ${values[latestIndex]}/10 (${days[latestIndex].day.toLocaleDateString('es-CO', {weekday:'long',day:'numeric',month:'long'})}). La gráfica es un autorregistro, no una evaluación clínica.`;
+  }
+}
+
+function initTransferJournal() {
+  const openBtn = document.getElementById('open-transfer-journal');
+  const panel = document.getElementById('transfer-journal-panel');
+  const chevron = document.getElementById('transfer-journal-chevron');
+  const saveBtn = document.getElementById('transfer-save-btn');
+  const status = document.getElementById('transfer-status');
+  const list = document.getElementById('transfer-saved-list');
+  const fields = ['transfer-feeling','transfer-separate','transfer-action'].map(id => document.getElementById(id));
+  if (!openBtn || !panel || !saveBtn || !list) return;
+  openBtn.addEventListener('click', () => {
+    const opening = panel.classList.contains('hidden');
+    panel.classList.toggle('hidden', !opening);
+    panel.classList.toggle('flex', opening);
+    openBtn.setAttribute('aria-expanded', String(opening));
+    if (chevron) chevron.textContent = opening ? 'expand_more' : 'chevron_right';
+    if (opening) fields[0]?.focus();
+  });
+  function renderNotes() {
+    list.replaceChildren();
+    const notes = psicoReadRecords(TRANSFER_NOTES_KEY);
+    const heading = document.createElement('strong');
+    heading.className = 'font-label-md text-label-md text-on-surface';
+    heading.textContent = `Mis reflexiones guardadas (${notes.length})`;
+    list.appendChild(heading);
+    if (!notes.length) {
+      const hint = document.createElement('p');
+      hint.className = 'font-body-sm text-body-sm text-on-surface-variant';
+      hint.textContent = 'Todavía no has guardado reflexiones de esta bitácora.';
+      list.appendChild(hint);
+      return;
+    }
+    notes.forEach(note => {
+      const article = document.createElement('article');
+      article.className = 'flex flex-col gap-2 p-space-sm rounded-xl bg-surface-container-low';
+      const date = document.createElement('span');
+      date.className = 'font-label-sm text-label-sm text-on-surface-variant';
+      const dateValue = new Date(note.savedAt);
+      date.textContent = Number.isNaN(dateValue.getTime()) ? 'Registro local' : dateValue.toLocaleString('es-CO');
+      article.appendChild(date);
+      [['Emociones',note.feeling],['Distinción personal',note.separate],['Autocuidado o supervisión',note.action]].forEach(([label,content]) => {
+        if (!content) return;
+        const text = document.createElement('p');
+        text.className = 'font-body-sm text-body-sm text-on-surface whitespace-pre-wrap break-words';
+        const title = document.createElement('strong');
+        title.textContent = `${label}: `;
+        text.appendChild(title);
+        text.appendChild(document.createTextNode(content));
+        article.appendChild(text);
+      });
+      const remove = document.createElement('button');
+      remove.type = 'button';
+      remove.className = 'text-error underline font-label-sm text-label-sm self-start';
+      remove.textContent = 'Eliminar esta reflexión';
+      remove.addEventListener('click', () => {
+        const remaining = psicoReadRecords(TRANSFER_NOTES_KEY).filter(x => x.id !== note.id);
+        if (psicoWriteRecords(TRANSFER_NOTES_KEY, remaining)) {
+          if (status) status.textContent = 'Reflexión eliminada de este navegador.';
+          renderNotes();
+        } else if (status) status.textContent = 'No se pudo eliminar la reflexión.';
+      });
+      article.appendChild(remove);
+      list.appendChild(article);
     });
   }
-
-  if (closeToast && toast) {
-    closeToast.addEventListener('click', () => toast.classList.add('hidden'));
-  }
+  saveBtn.addEventListener('click', () => {
+    const [feeling, separate, action] = fields.map(el => (el?.value || '').trim());
+    if (!feeling && !separate && !action) {
+      if (status) status.textContent = 'Escribe al menos una respuesta antes de guardar.';
+      return;
+    }
+    const entry = {id:`${Date.now()}-${Math.random().toString(36).slice(2,9)}`, savedAt:new Date().toISOString(), feeling, separate, action};
+    const notes = [entry, ...psicoReadRecords(TRANSFER_NOTES_KEY)].slice(0,60);
+    if (psicoWriteRecords(TRANSFER_NOTES_KEY, notes)) {
+      fields.forEach(el => { if (el) el.value = ''; });
+      if (status) status.textContent = 'Reflexión guardada en este navegador.';
+      renderNotes();
+    } else if (status) status.textContent = 'No se pudo guardar. Revisa el almacenamiento local.';
+  });
+  renderNotes();
 }
 
 /* ==========================================================================

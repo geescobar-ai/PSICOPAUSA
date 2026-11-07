@@ -443,81 +443,61 @@
 </button>
 </div>
 </div>
-<!-- COMPASS DE BIENESTAR: Monitoreo Semanal de Desgaste -->
-<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
-<div class="flex items-center justify-between">
-<div class="flex items-center gap-space-xs">
-<span class="material-symbols-outlined text-primary text-xl">analytics</span>
-<h3 class="font-headline-sm text-headline-sm text-on-surface">Compass de Bienestar</h3>
+<!-- COMPASS DE BIENESTAR: DATOS REALES DEL CHECK-IN -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md" id="wellbeing-panel">
+  <div class="flex items-center justify-between gap-2">
+    <div class="flex items-center gap-space-xs">
+      <span class="material-symbols-outlined text-primary text-xl">analytics</span>
+      <h3 class="font-headline-sm text-headline-sm text-on-surface">Compass de Bienestar</h3>
+    </div>
+    <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Últimos 7 días</span>
+  </div>
+  <p class="font-body-sm text-body-sm text-on-surface-variant">Intensidad emocional registrada (1–10) en tus check-ins. Solo aparecen datos guardados en este navegador; los días sin registro quedan vacíos.</p>
+  <div class="bg-surface-container-low p-space-md rounded-xl flex flex-col gap-space-sm">
+    <div class="flex justify-end gap-2 items-center font-label-sm text-label-sm text-on-surface">
+      <span class="w-2.5 h-2.5 rounded-full bg-primary"></span> Intensidad emocional (1–10)
+    </div>
+    <div class="w-full h-36">
+      <svg id="wellbeing-chart" class="w-full h-full" viewBox="0 0 380 120" preserveAspectRatio="none" role="img" aria-label="Registros de intensidad emocional de los últimos siete días"></svg>
+    </div>
+    <div id="wellbeing-day-labels" class="flex justify-between px-1 text-center font-label-sm text-label-sm text-on-surface-variant font-medium"></div>
+    <p id="wellbeing-empty" class="font-body-sm text-body-sm text-on-surface-variant text-center">Todavía no hay check-ins guardados.</p>
+  </div>
+  <div class="flex items-start gap-space-sm p-space-sm rounded-xl bg-secondary-fixed/50 text-on-secondary-fixed" aria-live="polite">
+    <span class="material-symbols-outlined text-secondary text-xl flex-shrink-0 mt-0.5">sentiment_satisfied</span>
+    <div class="flex flex-col gap-0.5">
+      <span class="font-label-md text-label-md font-semibold text-secondary">Resumen de tus registros</span>
+      <p id="wellbeing-summary" class="font-body-sm text-body-sm text-on-surface leading-snug">Guarda un registro para comenzar a ver tu historial.</p>
+    </div>
+  </div>
 </div>
-<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Últimos 7 días</span>
-</div>
-<p class="font-body-sm text-body-sm text-on-surface-variant">
-          Nivel de energía recuperativa vs. carga emocional absorbida en supervisión y práctica.
-        </p>
-<!-- Inline SVG Gráfico Comparativo de Balance Emocional -->
-<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col gap-space-sm">
-<div class="flex items-center justify-end gap-space-md font-label-sm text-label-sm">
-<div class="flex items-center gap-1.5">
-<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
-<span class="text-on-surface">Energía Vital</span>
-</div>
-<div class="flex items-center gap-1.5">
-<span class="w-2.5 h-2.5 rounded-full bg-secondary-container"></span>
-<span class="text-on-surface">Carga Clínica</span>
-</div>
-</div>
-<div class="w-full h-36">
-<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 380 120">
-<!-- Guías de fondo horizontales -->
-<line class="text-outline-variant/30" stroke="currentColor" stroke-dasharray="3 3" x1="20" x2="370" y1="20" y2="20"></line>
-<line class="text-outline-variant/30" stroke="currentColor" stroke-dasharray="3 3" x1="20" x2="370" y1="60" y2="60"></line>
-<line class="text-outline-variant/30" stroke="currentColor" stroke-dasharray="3 3" x1="20" x2="370" y1="100" y2="100"></line>
-<!-- Curva: Carga Emocional (Secundaria) -->
-<path class="text-secondary-container" d="M 30,75 C 80,85 110,65 150,55 C 190,45 230,85 270,30 C 310,40 350,50 370,45" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2.5"></path>
-<!-- Curva: Nivel de Energía (Primaria) -->
-<path class="text-primary" d="M 30,40 C 80,45 110,50 150,60 C 190,65 230,40 270,75 C 310,55 350,35 370,30" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="3"></path>
-<!-- Puntos clave del día crítico (Jueves: x=270) -->
-<circle class="fill-secondary" cx="270" cy="30" r="4.5"></circle>
-<circle class="fill-primary" cx="270" cy="75" r="4.5"></circle>
-</svg>
-</div>
-<!-- Días de la semana -->
-<div class="flex justify-between px-2 text-center font-label-sm text-label-sm text-on-surface-variant font-medium">
-<span>Vie</span>
-<span>Sáb</span>
-<span>Dom</span>
-<span>Lun</span>
-<span>Mar</span>
-<span>Mié</span>
-<span class="text-primary font-bold">Jue (Hoy)</span>
-</div>
-</div>
-<!-- Alerta Preventiva Respetuosa -->
-<div class="flex items-start gap-space-sm p-space-sm rounded-xl bg-secondary-fixed/50 text-on-secondary-fixed">
-<span class="material-symbols-outlined text-secondary text-xl flex-shrink-0 mt-0.5">sentiment_dissatisfied</span>
-<div class="flex flex-col gap-0.5">
-<span class="font-label-md text-label-md font-semibold text-secondary">Aviso preventivo amable</span>
-<p class="font-body-sm text-body-sm text-on-surface leading-snug">
-              Nivel de sobrecarga moderado este jueves tras prácticas hospitalarias. Te sugerimos 10 min de pausa activa antes de redactar tus fichas de evolución.
-            </p>
-</div>
-</div>
-</div>
-<!-- Tarjeta de Anclaje Rápido & Espacio de Descompresión -->
-<div class="bg-surface-container-low rounded-xl p-space-md flex items-center justify-between gap-space-sm">
-<div class="flex items-center gap-space-sm">
-<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary">
-<span class="material-symbols-outlined text-xl">psychology_alt</span>
-</div>
-<div class="flex flex-col">
-<span class="font-label-md text-label-md text-on-surface font-semibold">Bitácora de Transferencia</span>
-<span class="font-body-sm text-body-sm text-on-surface-variant">¿Qué emoción del paciente te pertenece y cuál no?</span>
-</div>
-</div>
-<button class="p-space-xs rounded-lg hover:bg-surface-container-high text-primary transition-colors" type="button">
-<span class="material-symbols-outlined text-xl">chevron_right</span>
-</button>
+<!-- BITÁCORA GUIADA: reflexiones guardadas solo en este navegador -->
+<div class="flex flex-col gap-space-sm" id="transfer-journal-area">
+  <button id="open-transfer-journal" class="w-full bg-surface-container-low rounded-xl p-space-md flex items-center justify-between gap-space-sm text-left hover:bg-surface-container-high focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary" type="button" aria-expanded="false" aria-controls="transfer-journal-panel">
+    <span class="flex items-center gap-space-sm">
+      <span class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary flex-shrink-0"><span class="material-symbols-outlined text-xl">psychology_alt</span></span>
+      <span class="flex flex-col gap-1">
+        <span class="font-label-md text-label-md text-on-surface font-semibold">Bitácora de Transferencia</span>
+        <span class="font-body-sm text-body-sm text-on-surface-variant">Reflexiona sobre tus reacciones emocionales y tu autocuidado.</span>
+      </span>
+    </span>
+    <span id="transfer-journal-chevron" class="material-symbols-outlined text-xl text-primary">chevron_right</span>
+  </button>
+  <div id="transfer-journal-panel" class="hidden bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex-col gap-space-md">
+    <h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Mi reflexión después de la práctica</h3>
+    <p class="font-body-sm text-body-sm text-on-surface-variant">Esta actividad ayuda a reconocer lo que sientes sin atribuir emociones a otras personas ni hacer interpretaciones clínicas. No escribas nombres, historias ni datos identificables de consultantes. Las notas quedan en este navegador, sin cifrado.</p>
+    <label class="font-label-md text-label-md text-on-surface" for="transfer-feeling">1. ¿Qué emociones o sensaciones noté en mí?</label>
+    <textarea id="transfer-feeling" maxlength="600" rows="2" class="w-full bg-surface-container-low rounded-xl p-space-sm text-on-surface border border-outline-variant focus:outline-primary" placeholder="Ej.: Sentí cansancio y preocupación al terminar mi jornada."></textarea>
+    <label class="font-label-md text-label-md text-on-surface" for="transfer-separate">2. ¿Qué me ayuda a distinguir mi reacción de lo observado en la práctica?</label>
+    <textarea id="transfer-separate" maxlength="600" rows="2" class="w-full bg-surface-container-low rounded-xl p-space-sm text-on-surface border border-outline-variant focus:outline-primary" placeholder="Ej.: Identificar qué situaciones activaron mis pensamientos, sin asumir lo que la otra persona siente."></textarea>
+    <label class="font-label-md text-label-md text-on-surface" for="transfer-action">3. ¿Qué haré para cuidarme o consultar en supervisión?</label>
+    <textarea id="transfer-action" maxlength="600" rows="2" class="w-full bg-surface-container-low rounded-xl p-space-sm text-on-surface border border-outline-variant focus:outline-primary" placeholder="Ej.: Conversar sobre mis límites en la próxima supervisión."></textarea>
+    <div class="flex flex-wrap items-center gap-space-sm">
+      <button id="transfer-save-btn" class="px-space-md py-space-sm rounded-xl bg-primary text-on-primary font-label-md text-label-md hover:bg-primary-container" type="button">Guardar mi reflexión</button>
+      <span id="transfer-status" class="font-body-sm text-body-sm text-on-surface-variant" role="status" aria-live="polite"></span>
+    </div>
+    <div class="flex flex-col gap-space-xs" id="transfer-saved-list"></div>
+  </div>
 </div>
 </div>
 </div>
@@ -1994,96 +1974,75 @@
 </div>
 </section>
 <!-- MAPA Y LOCALIZADOR DE CENTROS DE URGENCIAS CLÍNICAS -->
-<section class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
-<!-- COLUMNA MAPA (8 COLS) -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg" aria-label="Centros médicos de urgencias en Tunja">
+<!-- CENTRO PRINCIPAL: HOSPITAL SAN RAFAEL -->
 <div class="lg:col-span-8 flex flex-col gap-space-md">
-<div class="flex items-center justify-between">
+<div class="flex items-start justify-between gap-space-xs flex-wrap">
 <div class="flex items-center gap-space-xs">
-<span class="material-symbols-outlined text-primary text-2xl">location_on</span>
-<h2 class="font-headline-md text-headline-md text-on-surface">Centros de Urgencias Médicas y Psiquiátricas Cercanos</h2>
+<span class="material-symbols-outlined text-primary text-2xl">local_hospital</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Centros médicos con urgencias en Tunja</h2>
 </div>
-<span class="font-label-sm text-label-sm text-primary font-semibold flex items-center gap-1">
-<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-          Ubicaciones de ejemplo · Verificar en Maps
-        </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Consulta distancia y ruta en Google Maps</span>
 </div>
-<!-- CONTENEDOR DE MAPA CON ATRIBUTO OBLIGATORIO data-location -->
-<div class="relative rounded-xl overflow-hidden shadow-md h-96 group">
-<div class="w-full h-full bg-cover bg-center" data-location="Hospital San Rafael Tunja, Boyacá, Colombia" style=""></div>
-<!-- OVERLAY INFORMATIVO SOBRE EL MAPA -->
+<div class="relative rounded-xl overflow-hidden shadow-md h-80 sm:h-96 group bg-surface-container">
+<div class="w-full h-full flex flex-col items-center justify-center gap-space-sm text-center px-space-lg bg-gradient-to-br from-primary/10 via-surface-container to-tertiary/10">
+<span class="material-symbols-outlined text-primary text-5xl" aria-hidden="true">local_hospital</span>
+<p class="font-headline-sm text-headline-sm text-on-surface font-semibold">Hospital Universitario San Rafael de Tunja</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Urgencias 24 horas · Carrera 11 No. 27-27, Tunja</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Tel. (608) 740 5030 · Urgencias ext. 2107</p>
+</div>
 <div class="absolute bottom-space-md left-space-md right-space-md bg-surface/95 backdrop-blur-md p-space-md rounded-xl shadow-lg flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-sm">
 <div class="flex items-center gap-space-sm">
-<div class="p-space-xs bg-error text-on-error rounded-lg">
-<span class="material-symbols-outlined text-lg">local_hospital</span>
-</div>
+<div class="p-space-xs bg-error text-on-error rounded-lg"><span class="material-symbols-outlined text-lg">emergency</span></div>
 <div class="flex flex-col">
-<span class="font-label-lg text-label-lg text-on-surface font-semibold">Hospital Universitario San Rafael (Urgencias 24h)</span>
-<span class="font-body-sm text-body-sm text-on-surface-variant">Consulta dirección y distancia reales en Google Maps · Servicio de Interconsulta Psiquiátrica</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Hospital San Rafael · Urgencias</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Dirección y contacto institucional verificados.</span>
 </div>
 </div>
-<a class="px-space-md py-space-xs bg-primary hover:bg-primary-container text-on-primary rounded-xl font-label-md text-label-md flex items-center gap-space-xs shrink-0 shadow-sm" href="https://maps.google.com" rel="noopener noreferrer" target="_blank">
-<span class="material-symbols-outlined text-base">directions</span>
-<span>Cómo llegar</span>
-</a>
+<div class="flex flex-wrap items-center gap-space-xs">
+<a class="px-space-md py-space-xs bg-surface-container hover:bg-surface-container-high text-on-surface rounded-xl font-label-md text-label-md flex items-center gap-space-xs shrink-0 shadow-sm" href="tel:+576087405030" aria-label="Llamar al Hospital Universitario San Rafael"><span class="material-symbols-outlined text-base">call</span>Llamar</a>
+<a class="px-space-md py-space-xs bg-primary hover:bg-primary-container hover:text-on-primary-container text-on-primary rounded-xl font-label-md text-label-md flex items-center gap-space-xs shrink-0 shadow-sm" href="https://www.google.com/maps/dir/?api=1&amp;destination=Carrera%2011%20No.%2027-27%2C%20Tunja%2C%20Boyaca%2C%20Colombia" rel="noopener noreferrer" target="_blank"><span class="material-symbols-outlined text-base">directions</span>Cómo llegar</a>
 </div>
 </div>
 </div>
-<!-- COLUMNA DIRECTORIO COMPLEMENTARIO (4 COLS) -->
+</div>
+<!-- CENTROS COMPLEMENTARIOS: ESE SANTIAGO Y MEDILASER -->
 <div class="lg:col-span-4 flex flex-col gap-space-md">
 <div class="flex items-center gap-space-xs">
-<span class="material-symbols-outlined text-secondary text-2xl">local_police</span>
-<h3 class="font-headline-md text-headline-md text-on-surface">Puntos de Atención Rápida</h3>
+<span class="material-symbols-outlined text-secondary text-2xl">medical_services</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Otras opciones de atención</h3>
 </div>
 <div class="flex flex-col gap-space-sm">
-<!-- HOSPITAL 1 -->
-<div class="p-space-md bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-all flex flex-col gap-space-xs">
-<div class="flex items-center justify-between">
-<span class="font-label-lg text-label-lg text-on-surface font-bold">Clínica Psiquiátrica San Jerónimo</span>
-<span class="px-space-xs py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">Urgencias</span>
+<article class="p-space-md bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-all flex flex-col gap-space-xs border border-outline-variant/20">
+<div class="flex items-start justify-between gap-space-xs">
+<h4 class="font-label-lg text-label-lg text-on-surface font-bold">ESE Santiago de Tunja — Hospital Metropolitano</h4>
+<span class="px-space-xs py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold shrink-0">Urgencias 24 h</span>
 </div>
-<p class="font-body-sm text-body-sm text-on-surface-variant">Unidad especializada en crisis aguda y estabilización emocional.</p>
-<div class="flex items-center justify-between pt-space-xs">
-<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
-<span class="material-symbols-outlined text-sm">distance</span> Distancia por verificar
-            </span>
-<a class="text-primary hover:text-primary-container font-label-md text-label-md flex items-center gap-0.5 font-semibold" href="https://www.google.com/maps/search/?api=1&query=urgencias+Tunja+Boyaca" target="_blank" rel="noopener noreferrer">
-<span class="material-symbols-outlined text-base">call</span> Llamar
-            </a>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Servicio general de urgencias 24 horas, con valoración y remisión según el caso.</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-start gap-1"><span class="material-symbols-outlined text-base shrink-0">location_on</span>Calle 8 No. 2A-47, barrio San Antonio, Tunja</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Tel. (608) 745 8613</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant italic">La ruta y la distancia actual se consultan en Google Maps.</p>
+<div class="grid grid-cols-2 gap-space-xs pt-space-xs">
+<a class="px-space-xs py-space-xs bg-primary text-on-primary rounded-xl font-label-sm text-label-sm font-semibold flex justify-center items-center gap-1 hover:bg-primary-container hover:text-on-primary-container" href="tel:+576087458613" aria-label="Llamar a ESE Santiago de Tunja — Hospital Metropolitano"><span class="material-symbols-outlined text-base">call</span>Llamar</a>
+<a class="px-space-xs py-space-xs bg-surface-container text-on-surface rounded-xl font-label-sm text-label-sm font-semibold flex justify-center items-center gap-1 hover:bg-surface-container-high" href="https://www.google.com/maps/dir/?api=1&amp;destination=Calle%208%20No.%202A-47%2C%20Barrio%20San%20Antonio%2C%20Tunja%2C%20Boyaca%2C%20Colombia" target="_blank" rel="noopener noreferrer" aria-label="Ver cómo llegar a ESE Santiago de Tunja — Hospital Metropolitano"><span class="material-symbols-outlined text-base">directions</span>Cómo llegar</a>
 </div>
+</article>
+<article class="p-space-md bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-all flex flex-col gap-space-xs border border-outline-variant/20">
+<div class="flex items-start justify-between gap-space-xs">
+<h4 class="font-label-lg text-label-lg text-on-surface font-bold">Clínica Medilaser — Sede principal Tunja</h4>
+<span class="px-space-xs py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold shrink-0">Urgencias 24 h</span>
 </div>
-<!-- HOSPITAL 2 -->
-<div class="p-space-md bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-all flex flex-col gap-space-xs">
-<div class="flex items-center justify-between">
-<span class="font-label-lg text-label-lg text-on-surface font-bold">ESE Santiago de Tunja</span>
-<span class="px-space-xs py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-semibold">Primer Nivel</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Atención médica de urgencias 24 horas. Confirma por teléfono si requieres una especialidad específica.</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-start gap-1"><span class="material-symbols-outlined text-base shrink-0">location_on</span>Carrera 2 Este No. 67B-90, barrio Suamox, Tunja</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Tel. (608) 745 3000 · Urgencias ext. 3750</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant italic">La ruta y la distancia actual se consultan en Google Maps.</p>
+<div class="grid grid-cols-2 gap-space-xs pt-space-xs">
+<a class="px-space-xs py-space-xs bg-primary text-on-primary rounded-xl font-label-sm text-label-sm font-semibold flex justify-center items-center gap-1 hover:bg-primary-container hover:text-on-primary-container" href="tel:+576087453000" aria-label="Llamar a Clínica Medilaser — Sede principal Tunja"><span class="material-symbols-outlined text-base">call</span>Llamar</a>
+<a class="px-space-xs py-space-xs bg-surface-container text-on-surface rounded-xl font-label-sm text-label-sm font-semibold flex justify-center items-center gap-1 hover:bg-surface-container-high" href="https://www.google.com/maps/dir/?api=1&amp;destination=Carrera%202%20Este%20No.%2067B-90%2C%20Barrio%20Suamox%2C%20Tunja%2C%20Boyaca%2C%20Colombia" target="_blank" rel="noopener noreferrer" aria-label="Ver cómo llegar a Clínica Medilaser — Sede principal Tunja"><span class="material-symbols-outlined text-base">directions</span>Cómo llegar</a>
 </div>
-<p class="font-body-sm text-body-sm text-on-surface-variant">Atención prioritaria y remisión inmediata a red de mayor complejidad.</p>
-<div class="flex items-center justify-between pt-space-xs">
-<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
-<span class="material-symbols-outlined text-sm">distance</span> Distancia por verificar
-            </span>
-<a class="text-primary hover:text-primary-container font-label-md text-label-md flex items-center gap-0.5 font-semibold" href="https://www.google.com/maps/search/?api=1&query=urgencias+Tunja+Boyaca" target="_blank" rel="noopener noreferrer">
-<span class="material-symbols-outlined text-base">call</span> Llamar
-            </a>
+</article>
 </div>
-</div>
-<!-- POLICÍA NACIONAL / CAI -->
-<div class="p-space-md bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-all flex flex-col gap-space-xs">
-<div class="flex items-center justify-between">
-<span class="font-label-lg text-label-lg text-on-surface font-bold">CAI Plaza Principal</span>
-<span class="px-space-xs py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-semibold">Seguridad</span>
-</div>
-<p class="font-body-sm text-body-sm text-on-surface-variant">Acompañamiento presencial preventivo si te encuentras en vía pública vulnerable.</p>
-<div class="flex items-center justify-between pt-space-xs">
-<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
-<span class="material-symbols-outlined text-sm">distance</span> Distancia por verificar
-            </span>
-<a class="text-primary hover:text-primary-container font-label-md text-label-md flex items-center gap-0.5 font-semibold" href="https://www.google.com/maps/search/?api=1&query=urgencias+Tunja+Boyaca" target="_blank" rel="noopener noreferrer">
-<span class="material-symbols-outlined text-base">call</span> Llamar
-            </a>
-</div>
-</div>
-</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Los números son contactos institucionales. Si existe peligro inmediato para la vida, utiliza la línea 123. La disponibilidad de valoración especializada debe confirmarse con cada institución.</p>
 </div>
 </section>
 <!-- PIE DE ACCIONES: SALIDA SEGURA Y RETORNO -->
